@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDSS 94 · Building Thoughtful AI Systems</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h1 class="site-title">Building Thoughtful AI Systems</h1>
+            <p class="site-meta">CDSS 94 · Spring 2026 · Mondays, 5–7:30 PM · [Location TBD]</p>
+            <p class="site-description">
+                This course is a rigorous, hands-on exploration of post-training — how we shape model behavior through reinforcement learning, align objectives, design reward functions, build evaluations, and turn foundation models into reliable, useful AI systems. You'll learn both the technical methods and the product intuition needed to take models from raw capability to production readiness. 
+            </p>
+
+            <div class="teaching-staff">
+                <div class="staff-label">Teaching Staff</div>
+                <div class="staff-grid">
+                    <a href="https://x.com/karinanguyen_" target="_blank" class="staff-member">
+                        <div class="staff-avatar">
+                            <img src="assets/images/karina.jpeg" alt="Karina Nguyen">
+                </div>
+                        <span class="staff-name">Karina Nguyen</span>
+                        <span class="staff-role">Instructor</span>
+                    </a>
+                    <a href="https://x.com/KJHMiao" target="_blank" class="staff-member">
+                        <div class="staff-avatar">
+                            <img src="assets/images/kevin.png" alt="Kevin Miao">
+                        </div>
+                        <span class="staff-name">Kevin Miao</span>
+                        <span class="staff-role">Instructor</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <!-- Social links can be added here -->
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navigation -->
+            <div class="nav-pills">
+                <button class="nav-pill active" data-section="schedule">Syllabus</button>
+                <button class="nav-pill" data-section="calendar">Calendar</button>
+                <button class="nav-pill" data-section="projects">Projects</button>
+                <button class="nav-pill" data-section="policies">About</button>
+            </div>
+
+            <!-- Schedule Section -->
+            <div id="syllabus" class="schedule-section">
+                <!-- Module 1: Fundamentals -->
+                <h3 class="section-header">Module 1 · Fundamentals</h3>
+                <div class="posts-list">
+                    <div class="post-card">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="12" y="8" width="40" height="48" rx="3"/>
+                                <path d="M20 20h24M20 28h24M20 36h16"/>
+                                <circle cx="44" cy="44" r="8"/>
+                                <path d="M44 40v8M40 44h8"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">What We Owe Machines</h2>
+                            <span class="post-date">January 26, 2026</span>
+                        </div>
+                        <p class="post-description">The hard problem in AI isn't making machines smarter, it's teaching them to handle problems without right answers. This lecture traces how we learned to teach machines at all, and where that project stands today.</p>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </div>
+                        <div class="post-materials">
+                            <a href="https://docs.google.com/presentation/d/1nxbNp8790FXulVz9qfzK9feuBdAMdWV7xJa_wEcatF4/edit?usp=sharing" target="_blank" class="material-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                                Slides
+                            </a>
+                            <a href="https://drive.google.com/file/d/10AQCsEnCpEPpblU4TgUNZJzCu-JtUoes/view?usp=share_link" target="_blank" class="material-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                Lecture Notes
+                            </a>
+                            <span class="material-link disabled">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                                Recording
+                            </span>
+                            <div class="material-credit">Lecture notes by Riccardo Colletti</div>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M16 48V16h8l4 8 4-8h8l4 8 4-8h8v32"/>
+                                <circle cx="32" cy="32" r="12"/>
+                                <path d="M28 32h8M32 28v8"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">The Lifecycle of a Language Model</h2>
+                            <span class="post-date">February 2, 2026</span>
+                        </div>
+                        <p class="post-description">Understanding the full training pipeline from pretraining to deployment.</p>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2: Post-Training -->
+                <h3 class="section-header upcoming">Module 2 · Post-Training</h3>
+                <div class="posts-list">
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="8" y="12" width="48" height="40" rx="4"/>
+                                <path d="M8 24h48"/>
+                                <circle cx="16" cy="18" r="2"/>
+                                <circle cx="24" cy="18" r="2"/>
+                                <path d="M16 32l8 8 16-16"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Post-Training Foundations</h2>
+                            <span class="post-date">February 9, 2026</span>
+                            <span class="post-tag tag-due">Final Project A Due</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M32 8v48"/>
+                                <path d="M16 24l16-16 16 16"/>
+                                <path d="M16 40l16 16 16-16"/>
+                                <circle cx="32" cy="32" r="6"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">RLHF and Reward Learning</h2>
+                            <span class="post-date">February 16, 2026</span>
+                            <span class="post-tag tag-release">Project 1 Released</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M32 12L12 28v24l20 8 20-8V28L32 12z"/>
+                                <path d="M32 12v40"/>
+                                <path d="M12 28l20 8 20-8"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Alignment Methods & Model Behavior</h2>
+                            <span class="post-date">February 23, 2026</span>
+                            <span class="post-tag tag-due">Final Project B Due</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="8" y="16" width="48" height="32" rx="2"/>
+                                <path d="M16 28h12M16 36h8"/>
+                                <path d="M40 24v16l8-8-8-8z"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Evals as Research</h2>
+                            <span class="post-date">March 2, 2026</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3: Reasoning & Agents -->
+                <h3 class="section-header upcoming">Module 3 · Reasoning & Agents</h3>
+                <div class="posts-list">
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <circle cx="20" cy="20" r="8"/>
+                                <circle cx="44" cy="20" r="8"/>
+                                <circle cx="32" cy="44" r="8"/>
+                                <path d="M26 24l8 14M38 24l-8 14M20 28v8M44 28v8"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Search, Planning, Memory</h2>
+                            <span class="post-date">March 9, 2026</span>
+                            <span class="post-tag tag-due">Project 1 Due</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="12" y="8" width="40" height="28" rx="2"/>
+                                <path d="M20 44h24"/>
+                                <path d="M32 36v8"/>
+                                <rect x="16" y="48" width="32" height="8" rx="2"/>
+                                <path d="M20 20h24M20 28h16"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Tool Use and Verification</h2>
+                            <span class="post-date">March 16, 2026</span>
+                            <span class="post-tag tag-release">Project 2 Released</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M32 8C18.7 8 8 18.7 8 32s10.7 24 24 24 24-10.7 24-24S45.3 8 32 8z"/>
+                                <path d="M32 16v16l12 8"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Spring Break</h2>
+                            <span class="post-date">March 23, 2026</span>
+                        </div>
+                        <p class="post-description">No class this week. Enjoy your break!</p>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <circle cx="20" cy="24" r="8"/>
+                                <circle cx="44" cy="24" r="8"/>
+                                <circle cx="20" cy="44" r="8"/>
+                                <circle cx="44" cy="44" r="8"/>
+                                <path d="M28 24h8M28 44h8M20 32v4M44 32v4"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Multi-Agent Systems</h2>
+                            <span class="post-date">March 30, 2026</span>
+                            <span class="post-tag tag-due">Final Project C Due</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4: Product -->
+                <h3 class="section-header upcoming">Module 4 · Product & Research</h3>
+                <div class="posts-list">
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M16 16h32v32H16z"/>
+                                <path d="M16 24h32M24 24v24"/>
+                                <circle cx="40" cy="36" r="4"/>
+                                <path d="M36 44h8"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Product Design & Development Workshop</h2>
+                            <span class="post-date">April 6, 2026</span>
+                            <span class="post-tag tag-due">Project 2 Due</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M12 16h40v36H12z"/>
+                                <path d="M12 24h40"/>
+                                <path d="M20 32h24M20 40h16M20 48h20"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Product Workshop (Continued)</h2>
+                            <span class="post-date">April 13, 2026</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <circle cx="32" cy="32" r="20"/>
+                                <path d="M32 20v12l8 8"/>
+                                <path d="M24 8h16M32 8v4"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Guest Lecture</h2>
+                            <span class="post-date">April 20, 2026</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M32 8l4 12h12l-10 8 4 12-10-8-10 8 4-12-10-8h12z"/>
+                                <path d="M20 48h24M24 52h16"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Guest Lecture</h2>
+                            <span class="post-date">April 27, 2026</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="post-card upcoming" style="background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);">
+                        <div class="post-icon">
+                            <svg viewBox="0 0 64 64">
+                                <path d="M32 8l6 12 14 2-10 10 2 14-12-6-12 6 2-14-10-10 14-2z"/>
+                            </svg>
+                        </div>
+                        <div class="post-title-group">
+                            <h2 class="post-title">Demo Day 🎉</h2>
+                            <span class="post-date">May 4, 2026 · RRR Week</span>
+                            <span class="post-tag tag-due">Final Project Due</span>
+                        </div>
+                        <div class="post-arrow">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Section -->
+            <div id="calendar" class="calendar-section">
+                <div class="calendar-grid">
+                    <div class="calendar-header">
+                        <div class="calendar-header-cell">Date</div>
+                        <div class="calendar-header-cell">Lecture</div>
+                        <div class="calendar-header-cell">Technical Work</div>
+                        <div class="calendar-header-cell">Materials</div>
+                        <div class="calendar-header-cell">Assignments Due</div>
+                    </div>
+                    
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Jan</div>
+                                <div class="date-day">26</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 1 · Fundamentals</div>
+                            <div class="cell-content">What We Owe Machines</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content"><a href="https://colab.research.google.com/drive/19WvcopPNIOLH4NKNH5ar1Y0M1d4yJ3mQ?usp=sharing" target="_blank" class="calendar-material-link">T1a: Inference Playground</a></div>
+                            <div class="cell-content"><a href="https://colab.research.google.com/drive/1deDpzYaMXkROCw2LWonMDsfcQJ34EFnD?usp=sharing" target="_blank" class="calendar-material-link">T1b: Scaling Laws</a></div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">
+                                <a href="https://docs.google.com/presentation/d/1nxbNp8790FXulVz9qfzK9feuBdAMdWV7xJa_wEcatF4/edit?usp=sharing" target="_blank" class="calendar-material-link">Slides</a>
+                                <a href="https://drive.google.com/file/d/10AQCsEnCpEPpblU4TgUNZJzCu-JtUoes/view?usp=share_link" target="_blank" class="calendar-material-link">Notes</a>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">2</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 2 · Fundamentals</div>
+                            <div class="cell-content">The Lifecycle of a Language Model</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T2a: Build a Context-Aware Assistant</div>
+                            <div class="cell-subcontent">T2b: Inference Deep-Dive</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">9</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 3 · Post-Training</div>
+                            <div class="cell-content">Post-Training Foundations</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T3a: Datagen Pipelines & Quality</div>
+                            <div class="cell-subcontent">T3b: SFT from Scratch</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project A Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">16</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 4 · Post-Training</div>
+                            <div class="cell-content">RLHF and Reward Learning</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T4a: DPO in Practice</div>
+                            <div class="cell-subcontent">T4b: Toy Reward Modeling</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag release">Project 1 Released</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">23</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 5 · Post-Training</div>
+                            <div class="cell-content">Alignment Methods & Model Behavior</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T5a: Refusal Classifier</div>
+                            <div class="cell-subcontent">T5b: Constitutional AI Loop</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project B Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">2</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 6 · Post-Training</div>
+                            <div class="cell-content">Evals as Research</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T6a: Evaluation Design</div>
+                            <div class="cell-subcontent">T6b: Benchmark Hacking</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">9</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 7 · Reasoning & Agents</div>
+                            <div class="cell-content">Search, Planning, Memory</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T7a: Planning Agent</div>
+                            <div class="cell-subcontent">T7b: AlphaEvolve</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Project 1 Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">16</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 8 · Reasoning & Agents</div>
+                            <div class="cell-content">Tool Use and Verification</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T8a: Coding Agent with Verification</div>
+                            <div class="cell-subcontent">T8b: Computer Use Lab</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag release">Project 2 Released</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row break">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">23</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Spring Break</div>
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">30</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 9 · Reasoning & Agents</div>
+                            <div class="cell-content">Multi-Agent Systems</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T9a: Agent Telemetry</div>
+                            <div class="cell-subcontent">T9b: Multi-Agent Collaboration</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project C Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">6</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 10 · Product</div>
+                            <div class="cell-content">Product Design & Development Workshop</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T10: Self-Play Experiment</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Project 2 Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">13</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 11 · Product</div>
+                            <div class="cell-content">Product Design & Development Workshop (Ct'd)</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">20</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 12 · Guest Lecture</div>
+                            <div class="cell-content">TBA</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">27</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 13 · Guest Lecture</div>
+                            <div class="cell-content">TBA</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row highlight">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">May</div>
+                                <div class="date-day">4</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">RRR Week</div>
+                            <div class="cell-content" style="font-weight: 600;">Demo Day 🎉</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project Due</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div id="projects" class="projects-section">
+                <!-- Final Project -->
+                <div class="project-card">
+                    <div class="project-badge final">Final Project</div>
+                    <h2>Final Project</h2>
+                    <p class="subtitle">Design and build a product demo AI product prototype that demonstrates mastery of course concepts. Teams of 2-4 students will propose, build, and present a demo.</p>
+                    
+                    <div class="project-timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-label">Team Formation</span>
+                            <span class="timeline-value">Feb 9</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-label">Proposal Due</span>
+                            <span class="timeline-value">Feb 23</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-label">WIP Check-in</span>
+                            <span class="timeline-value">Mar 30</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-label">Demo Day</span>
+                            <span class="timeline-value">May 4</span>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        The final project is your opportunity to explore a topic of your choice in depth. Projects should demonstrate technical sophistication and original thinking. Successful projects might included novel alignment techniques, agent architectures, evaluation frameworks, and creative applications of post-training methods.
+                    </p>
+
+                    <div class="milestones">
+                        <h4 class="milestones-title">Milestones</h4>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Feb 9</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Checkpoint A: Team formation and initial idea submission</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Feb 23</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Checkpoint B: Detailed proposal with methodology and timeline</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Mar 30</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Checkpoint C: Work-in-progress presentation and feedback session</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">May 4</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Final submission and Demo Day presentation</span>
+                        </div>
+                    </div>
+
+                    <!-- <div class="project-links">
+                        <a href="#" class="project-link primary">Project Guidelines</a>
+                        <a href="#" class="project-link secondary">Past Projects</a>
+                        <a href="#" class="project-link secondary">Find Teammates</a>
+                    </div> -->
+                </div>
+
+                <!-- Project 1 -->
+                <!-- <div class="project-card">
+                    <div class="project-badge p1">Project 1</div>
+                    <h2>Post-Training Pipeline</h2>
+                    <p class="subtitle">Build an end-to-end post-training pipeline from data generation to fine-tuned model deployment.</p>
+                    
+                    <div class="project-timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-label">Released</span>
+                            <span class="timeline-value">Feb 9</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-label">Due</span>
+                            <span class="timeline-value">Mar 9</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-label">Duration</span>
+                            <span class="timeline-value">4 weeks</span>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        In this project, you'll implement a complete post-training pipeline. Starting with synthetic data generation, you'll create a dataset, implement supervised fine-tuning, and optionally apply preference optimization. The goal is to improve a base model's performance on a specific capability of your choosing.
+                    </p>
+
+                    <div class="milestones">
+                        <h4 class="milestones-title">Deliverables</h4>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Part 1</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Data generation pipeline with quality filtering</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Part 2</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">SFT implementation with training curves and analysis</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Part 3</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Evaluation suite and performance comparison</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Bonus</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">DPO or reward model integration</span>
+                        </div>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">Project Spec</a>
+                        <a href="#" class="project-link secondary">Starter Code</a>
+                    </div>
+                </div> -->
+
+                <!-- Project 2 -->
+                <!-- <div class="project-card">
+                    <div class="project-badge p2">Project 2</div>
+                    <h2>Agentic Systems</h2>
+                    <p class="subtitle">Design and evaluate an AI agent capable of multi-step reasoning, tool use, and self-correction.</p>
+                    
+                    <div class="project-timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-label">Released</span>
+                            <span class="timeline-value">Mar 16</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-label">Due</span>
+                            <span class="timeline-value">Apr 6</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-label">Duration</span>
+                            <span class="timeline-value">3 weeks</span>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        Build a sophisticated AI agent that can plan, use tools, and verify its own outputs. You'll implement a coding agent, research agent, or domain-specific assistant that demonstrates robust reasoning and error recovery. The project emphasizes evaluation methodology and understanding failure modes.
+                    </p>
+
+                    <div class="milestones">
+                        <h4 class="milestones-title">Deliverables</h4>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Part 1</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Agent architecture with planning and tool integration</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Part 2</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Verification and self-correction mechanisms</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Part 3</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Evaluation harness and failure analysis</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="milestone-date">Bonus</span>
+                            <div class="milestone-dot"></div>
+                            <span class="milestone-text">Multi-agent collaboration or competition</span>
+                        </div>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="#" class="project-link primary">Project Spec</a>
+                        <a href="#" class="project-link secondary">Starter Code</a>
+                    </div>
+                </div> -->
+            </div>
+
+            <!-- Course Policies Section -->
+            <div id="about" class="policies-section">
+                <div class="policy-card">
+                    <h3 class="section-header">About the Course</h3>
+                    <div class="policies-content">
+                        <p>This project-based course teaches you to design, build, post-train, and evaluate agentic AI systems. We connect core technical foundations (model architecture, retrieval-augmented generation, tool use, multi-agent coordination) with hands-on labs and a team capstone project.</p>
+                        <p>You'll gain practical experience with model deployment frameworks, post-training pipelines (SFT, RL, context engineering), evaluation systems, and model-context protocols. The course culminates in building an end-to-end minimum viable AI product.</p>
+                        <p>Emphasis is placed on engineering rigor, creative problem-solving, and deployment at scale.</p>
+
+                        <h4 class="policies-heading">Learning Outcomes</h4>
+                        <p>By the end of this course, you will be able to:</p>
+                        <ul>
+                            <li>Design AI systems that are reliable, maintainable, and cost-effective</li>
+                            <li>Debug and align models in production using modern evaluation and feedback frameworks</li>
+                            <li>Post-train open-source LLMs using SFT, RL, and context engineering via TinkerAPI</li>
+                            <li>Translate research into practice, whether founding an AI venture or shipping at scale</li>
+                            <li>Navigate ethical considerations in deploying autonomous systems</li>
+                            <li>Prototype and iterate on applications using modern LLM and agentic architectures</li>
+                        </ul>
+
+                        <h4 class="policies-heading">Who This Course Is For</h4>
+                        <p>Upper-division undergraduates and early graduate students who want to found or join early-stage AI startups, or work on applied ML engineering at major technology companies.</p>
+                        <p><strong>Expected background:</strong> Solid Python programming experience (CS 61A/88 + CS 61B or equivalent). Prior ML exposure recommended (CS 182, CS 189, CS 185, or Data 100) but not required. Strong motivation to apply AI research to real-world systems.</p>
+
+                        <h4 class="policies-heading">Course Structure</h4>
+                        <ul>
+                            <li><strong>Module 1: Fundamentals</strong> Foundations of LLMs, architectures, inference</li>
+                            <li><strong>Module 2: Post-Training</strong> SFT, RLHF, alignment techniques, TinkerAPI</li>
+                            <li><strong>Module 3: Reasoning and Agents</strong> Chain-of-thought, tool use, multi-agent systems</li>
+                            <li><strong>Module 4: Product and Research</strong> Deployment, evaluation, scaling, ethics</li>
+                        </ul>
+
+                        <h4 class="policies-heading">Navigating the Course</h4>
+                        <p>We keep things simple: one channel for communication, one for submissions, and one site for all course content. Everything you need lives in one of these four places:</p>
+                        <ul class="policies-nav-list">
+                            <li><strong>Communication:</strong> Slack (see welcome email for invite link)</li>
+                            <li><strong>Course website:</strong> posttraining.ai</li>
+                            <li><strong>Assignments:</strong> Gradescope (enroll with code <strong>6X7K5K</strong>)</li>
+                            <li><strong>Lectures:</strong> In-person, recordings available on course site</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3 class="section-header">Grade Breakdown</h3>
+                    <div class="policies-content">
+                        <div class="grade-breakdown">
+                            <div class="grade-item">
+                                <span class="grade-percent">50%</span>
+                                <span class="grade-label">Final Project <span class="grade-detail">(semester-long, 2 checkpoints, Demo Day May 4th)</span></span>
+                            </div>
+                            <div class="grade-item">
+                                <span class="grade-percent">20%</span>
+                                <span class="grade-label">Project 1 &amp; Project 2 <span class="grade-detail">(10% each)</span></span>
+                            </div>
+                            <div class="grade-item">
+                                <span class="grade-percent">20%</span>
+                                <span class="grade-label">Attendance <span class="grade-detail">(in-person required, 2 excused absences allowed)</span></span>
+                            </div>
+                            <div class="grade-item">
+                                <span class="grade-percent">10%</span>
+                                <span class="grade-label">Documentation <span class="grade-detail">(weekly progress sharing, starting week 2)</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3 class="section-header">Assignments</h3>
+                    <div class="policies-content">
+                        <h4 class="policies-heading">Attendance (20%)</h4>
+                        <p>We believe you learn best by being in class and discussing with your peers. In-person attendance is required with 2 excused absences allowed.</p>
+
+                        <h4 class="policies-heading">Documentation (10%)</h4>
+                        <p>Each week you'll share something you learned: a blog post, tweet, TikTok, LinkedIn post, YouTube video. The format is yours; the goal is building in public.</p>
+
+                        <h4 class="policies-heading">Labs (ungraded)</h4>
+                        <p>Weekly technical work (T1–T10) released alongside lectures. These are hands-on labs that reinforce lecture topics and prepare you for the graded projects. Ungraded but strongly recommended.</p>
+
+                        <h4 class="policies-heading">Projects (graded)</h4>
+                        <p><strong>Project 1</strong> focuses on post-training pipelines. <strong>Project 2</strong> focuses on agentic systems. Both are graded on completion and quality.</p>
+                        <p>The <strong>Final Project</strong> is a semester-long endeavor where you ideate, design, prototype, and productionize an AI system. Two checkpoints throughout the semester, culminating in Demo Day on May 4th.</p>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3 class="section-header">Acknowledgements</h3>
+                    <div class="policies-content">
+                        <ul>
+                            <li><strong>Cognition</strong> for providing compute credits</li>
+                            <li><strong>Thinking Machines</strong> for TinkerAPI access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
