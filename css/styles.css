@@ -4,6 +4,33 @@
    ========================================================================== */
 
 /* ==========================================================================
+   0. Font Face
+   ========================================================================== */
+@font-face {
+    font-family: 'Neue Haas Grotesk';
+    src: url('../assets/fonts/NeueHaasGroteskDisplay-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neue Haas Grotesk';
+    src: url('../assets/fonts/NeueHaasGroteskDisplay-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neue Haas Grotesk';
+    src: url('../assets/fonts/NeueHaasGroteskDisplay-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ==========================================================================
    1. CSS Variables & Theme
    ========================================================================== */
 :root {
@@ -32,7 +59,7 @@
     --calendar-text-muted: #8b8075;
     
     /* Typography */
-    --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* ==========================================================================
@@ -49,6 +76,7 @@ body {
     background: var(--bg);
     color: var(--text-primary);
     line-height: 1.6;
+    letter-spacing: -0.02em;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -1033,7 +1061,7 @@ body.course-page {
     font-size: 48px;
     font-weight: 700;
     line-height: 1.15;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     margin-bottom: 12px;
 }
 
@@ -1183,6 +1211,7 @@ body.course-page {
     font-family: var(--font);
     font-size: 42px;
     font-weight: 700;
+    letter-spacing: -0.03em;
     margin-bottom: 60px;
     text-align: center;
 }
@@ -1240,7 +1269,7 @@ body.course-page {
 .video-date {
     font-size: 13px;
     font-weight: 500;
-    color: var(--text-muted);
+    color: var(--text-primary);
     white-space: nowrap;
 }
 
@@ -1249,6 +1278,13 @@ body.course-page {
     font-size: 12px;
     font-weight: 500;
     color: var(--text-muted);
+}
+
+
+/* Upcoming lectures */
+.video-card.upcoming {
+    opacity: 0.4;
+    pointer-events: none;
 }
 
 /* Video Modal */
@@ -1268,7 +1304,9 @@ body.course-page {
 .modal-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     cursor: pointer;
 }
 
@@ -1280,26 +1318,28 @@ body.course-page {
 }
 
 .modal-close {
-    position: absolute;
-    top: -48px;
-    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
     background: transparent;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
     cursor: pointer;
     color: white;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    opacity: 0.8;
+    transition: opacity 0.2s, border-color 0.2s;
 }
 
 .modal-close:hover {
     opacity: 1;
+    border-color: white;
 }
 
 .modal-close svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
 }
 
 .modal-video-wrapper {
@@ -1317,6 +1357,40 @@ body.course-page {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.modal-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.modal-links {
+    display: flex;
+    gap: 12px;
+}
+
+.modal-links:empty {
+    visibility: hidden;
+}
+
+.modal-link {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.modal-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
 }
 
 /* ==========================================================================
