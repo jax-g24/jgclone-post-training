@@ -1005,7 +1005,7 @@ body.homepage {
     align-items: center;
     justify-content: space-between;
     padding: 20px 40px;
-    background: var(--bg);
+    background: transparent;
 }
 
 .nav-logo {
@@ -1019,12 +1019,12 @@ body.homepage {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 20px;
 }
 
 .nav-link {
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.2s;
@@ -1283,8 +1283,11 @@ body.course-page {
 
 /* Upcoming lectures */
 .video-card.upcoming {
-    opacity: 0.4;
     pointer-events: none;
+}
+
+.video-card.upcoming .video-info {
+    opacity: 0.4;
 }
 
 /* Video Modal */
