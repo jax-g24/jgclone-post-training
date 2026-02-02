@@ -8,23 +8,29 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initMaterialsToggle();
     handleHashNavigation();
+    initTopNavLinks();
 });
+
+// Listen for hash changes
+window.addEventListener('hashchange', handleHashNavigation);
 
 /**
  * Initialize section navigation
  */
 function initNavigation() {
-    const navPills = document.querySelectorAll('.nav-pill');
+    const navTabs = document.querySelectorAll('.section-tab, .nav-pill');
     const scheduleSection = document.querySelector('.schedule-section');
     const calendarSection = document.querySelector('.calendar-section');
     const projectsSection = document.querySelector('.projects-section');
     const policiesSection = document.querySelector('.policies-section');
 
-    navPills.forEach(pill => {
-        pill.addEventListener('click', () => {
-            // Update active pill
-            navPills.forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
+    if (!scheduleSection) return;
+
+    navTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Update active tab
+            navTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
 
             // Hide all sections
             scheduleSection.classList.add('hidden');
@@ -33,7 +39,7 @@ function initNavigation() {
             policiesSection.classList.remove('active');
 
             // Show selected section
-            const section = pill.dataset.section;
+            const section = tab.dataset.section;
             if (section === 'schedule') {
                 scheduleSection.classList.remove('hidden');
             } else if (section === 'calendar') {
@@ -43,7 +49,35 @@ function initNavigation() {
             } else if (section === 'policies') {
                 policiesSection.classList.add('active');
             }
+
+            // Update URL hash
+            const hashMap = {
+                'schedule': 'syllabus',
+                'calendar': 'calendar',
+                'projects': 'projects',
+                'policies': 'about'
+            };
+            history.replaceState(null, '', '#' + hashMap[section]);
+
+            // Update top nav active state
+            updateTopNavActive(hashMap[section]);
         });
+    });
+}
+
+/**
+ * Update top nav link active state
+ */
+function updateTopNavActive(hash) {
+    const navLinks = document.querySelectorAll('.top-nav .nav-link');
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        link.classList.remove('active');
+        if (href && href.includes('#' + hash)) {
+            link.classList.add('active');
+        } else if (hash === 'syllabus' && href === 'course.html') {
+            link.classList.add('active');
+        }
     });
 }
 
@@ -110,10 +144,31 @@ function handleHashNavigation() {
 
     const section = hashToSection[hash];
     if (section) {
-        const pill = document.querySelector(`.nav-pill[data-section="${section}"]`);
-        if (pill) {
-            pill.click();
+        const tab = document.querySelector(`.section-tab[data-section="${section}"]`) ||
+                    document.querySelector(`.nav-pill[data-section="${section}"]`);
+        if (tab) {
+            tab.click();
         }
     }
+}
+
+/**
+ * Make top nav links work on course page
+ */
+function initTopNavLinks() {
+    const navLinks = document.querySelectorAll('.top-nav .nav-link');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
+            if (href && href.includes('#')) {
+                const hash = href.split('#')[1];
+                if (hash && window.location.pathname.includes('course.html')) {
+                    e.preventDefault();
+                    window.location.hash = hash;
+                }
+            }
+        });
+    });
 }
 
