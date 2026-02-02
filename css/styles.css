@@ -1156,6 +1156,9 @@ body.course-page {
     width: 100%;
     border-radius: 6px;
     overflow: hidden;
+    isolation: isolate;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
 }
 
 .video-overlay {
@@ -1234,6 +1237,9 @@ body.course-page {
     overflow: hidden;
     border-radius: 6px;
     background: #1a1a1a;
+    isolation: isolate;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
 }
 
 .video-thumbnail img {
