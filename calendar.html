@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar · Post Training</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="course-page">
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <a href="index.html" class="nav-logo">Post Training</a>
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span class="hamburger"></span>
+        </button>
+        <div class="nav-links">
+            <a href="course.html" class="nav-link">Syllabus</a>
+            <a href="calendar.html" class="nav-link active">Calendar</a>
+            <a href="projects.html" class="nav-link">Projects</a>
+            <a href="about.html" class="nav-link">About</a>
+        </div>
+    </nav>
+
+    <div class="course-container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1 class="page-title">Calendar</h1>
+            <p class="page-subtitle">Weekly schedule of lectures, labs, and assignments</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="course-content">
+            <!-- Calendar Section -->
+            <div class="calendar-section active">
+                <div class="calendar-grid">
+                    <div class="calendar-header">
+                        <div class="calendar-header-cell">Date</div>
+                        <div class="calendar-header-cell">Lecture</div>
+                        <div class="calendar-header-cell">Technical Work</div>
+                        <div class="calendar-header-cell">Materials</div>
+                        <div class="calendar-header-cell">Assignments Due</div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Jan</div>
+                                <div class="date-day">26</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 1 · Fundamentals</div>
+                            <div class="cell-content">What We Owe Machines</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content"><a href="https://colab.research.google.com/drive/19WvcopPNIOLH4NKNH5ar1Y0M1d4yJ3mQ?usp=sharing" target="_blank" class="calendar-material-link">T1a: Inference Playground</a></div>
+                            <div class="cell-content"><a href="https://colab.research.google.com/drive/1deDpzYaMXkROCw2LWonMDsfcQJ34EFnD?usp=sharing" target="_blank" class="calendar-material-link">T1b: Scaling Laws</a></div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">
+                                <a href="https://docs.google.com/presentation/d/1nxbNp8790FXulVz9qfzK9feuBdAMdWV7xJa_wEcatF4/edit?usp=sharing" target="_blank" class="calendar-material-link">Slides</a>
+                                <a href="https://drive.google.com/file/d/10AQCsEnCpEPpblU4TgUNZJzCu-JtUoes/view?usp=share_link" target="_blank" class="calendar-material-link">Notes</a>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">2</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 2 · Fundamentals</div>
+                            <div class="cell-content">The Lifecycle of a Language Model</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T2a: Build a Context-Aware Assistant</div>
+                            <div class="cell-subcontent">T2b: Inference Deep-Dive</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">9</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 3 · Post-Training</div>
+                            <div class="cell-content">Post-Training Foundations</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T3a: Datagen Pipelines & Quality</div>
+                            <div class="cell-subcontent">T3b: SFT from Scratch</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project A Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">16</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 4 · Post-Training</div>
+                            <div class="cell-content">RLHF and Reward Learning</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T4a: DPO in Practice</div>
+                            <div class="cell-subcontent">T4b: Toy Reward Modeling</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag release">Project 1 Released</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Feb</div>
+                                <div class="date-day">23</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 5 · Post-Training</div>
+                            <div class="cell-content">Alignment Methods & Model Behavior</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T5a: Refusal Classifier</div>
+                            <div class="cell-subcontent">T5b: Constitutional AI Loop</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project B Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">2</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 6 · Post-Training</div>
+                            <div class="cell-content">Evals as Research</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T6a: Evaluation Design</div>
+                            <div class="cell-subcontent">T6b: Benchmark Hacking</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">9</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 7 · Reasoning & Agents</div>
+                            <div class="cell-content">Search, Planning, Memory</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T7a: Planning Agent</div>
+                            <div class="cell-subcontent">T7b: AlphaEvolve</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Project 1 Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">16</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 8 · Reasoning & Agents</div>
+                            <div class="cell-content">Tool Use and Verification</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T8a: Coding Agent with Verification</div>
+                            <div class="cell-subcontent">T8b: Computer Use Lab</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag release">Project 2 Released</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row break">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">23</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Spring Break</div>
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Mar</div>
+                                <div class="date-day">30</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 9 · Reasoning & Agents</div>
+                            <div class="cell-content">Multi-Agent Systems</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T9a: Agent Telemetry</div>
+                            <div class="cell-subcontent">T9b: Multi-Agent Collaboration</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project C Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">6</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 10 · Product</div>
+                            <div class="cell-content">Product Design & Development Workshop</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">T10: Self-Play Experiment</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Project 2 Due</span>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">13</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 11 · Product</div>
+                            <div class="cell-content">Product Design & Development Workshop (Ct'd)</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">20</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 12 · Guest Lecture</div>
+                            <div class="cell-content">TBA</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">Apr</div>
+                                <div class="date-day">27</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">Week 13 · Guest Lecture</div>
+                            <div class="cell-content">TBA</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-row highlight">
+                        <div class="calendar-cell">
+                            <div class="date-display">
+                                <div class="date-month">May</div>
+                                <div class="date-day">4</div>
+                            </div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-label">RRR Week</div>
+                            <div class="cell-content" style="font-weight: 600;">Demo Day</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <div class="cell-content">—</div>
+                        </div>
+                        <div class="calendar-cell">
+                            <span class="calendar-tag due">Final Project Due</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

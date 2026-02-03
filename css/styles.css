@@ -1649,61 +1649,300 @@ body.course-page {
         flex-direction: column;
         gap: 12px;
     }
+}
 
-    /* Calendar Horizontal Scroll */
+/* ==========================================================================
+   17. Mobile Navigation (Hamburger Menu)
+   ========================================================================== */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    position: relative;
+    transition: background 0.2s;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.hamburger::before {
+    top: -7px;
+}
+
+.hamburger::after {
+    top: 7px;
+}
+
+/* Hamburger animation when active */
+.nav-toggle.active .hamburger {
+    background: transparent;
+}
+
+.nav-toggle.active .hamburger::before {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active .hamburger::after {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ==========================================================================
+   18. Mobile Responsive (768px and below)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Mobile Navigation */
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-link {
+        font-size: 24px;
+        padding: 20px 40px;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-link:first-child {
+        border-top: 1px solid var(--border-color);
+    }
+
+    .top-nav {
+        padding: 16px 20px;
+    }
+
+    /* Calendar Card Layout for Mobile */
     .calendar-section {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        margin: 0 -24px;
-        padding: 0 24px;
+        overflow: visible;
+        margin: 0;
+        padding: 0;
     }
 
     .calendar-grid {
-        min-width: 700px;
-    }
-
-    /* Reset calendar column hiding for horizontal scroll */
-    .calendar-header,
-    .calendar-row {
-        grid-template-columns: 80px 1.2fr 1fr 0.8fr 0.8fr;
-    }
-
-    .calendar-cell:nth-child(4),
-    .calendar-cell:last-child {
         display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        min-width: unset;
+    }
+
+    .calendar-header {
+        display: none;
+    }
+
+    .calendar-row {
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .calendar-row:hover {
+        background: var(--bg-card);
+    }
+
+    .calendar-cell {
+        padding: 0;
+        border: none;
+    }
+
+    .calendar-cell:first-child {
+        align-items: flex-start;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .date-display {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .date-month {
+        font-size: 14px;
+    }
+
+    .date-day {
+        font-size: 28px;
+        font-weight: 500;
+    }
+
+    .cell-label {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .cell-content {
+        font-size: 15px;
+    }
+
+    /* Show labels on mobile calendar cards */
+    .calendar-cell:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        margin-bottom: 4px;
+    }
+
+    .calendar-cell:nth-child(2)::before { content: 'Lecture'; }
+    .calendar-cell:nth-child(3)::before { content: 'Technical Work'; }
+    .calendar-cell:nth-child(4)::before { content: 'Materials'; }
+    .calendar-cell:nth-child(5)::before { content: 'Due'; }
+
+    /* Hide empty calendar cells on mobile */
+    .calendar-cell:empty {
+        display: none;
+    }
+
+    /* Video Grid Mobile */
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .video-card {
+        width: 100%;
+    }
+
+    .video-grid-section {
+        padding: 40px 20px 60px;
+    }
+
+    .grid-title {
+        font-size: 28px;
+        margin-bottom: 32px;
+    }
+
+    .video-info {
+        padding: 12px 0;
+    }
+
+    .video-title {
+        font-size: 16px;
+    }
+
+    /* Hero */
+    .hero {
+        padding: 0 20px;
+    }
+
+    .overlay-title {
+        font-size: 32px;
+    }
+
+    /* Course Container */
+    .course-container {
+        padding: 0 20px 60px;
+    }
+
+    .course-title {
+        font-size: 32px;
+    }
+
+    .page-title {
+        font-size: 36px;
+    }
+
+    /* Post Cards */
+    .post-card {
+        grid-template-columns: 48px 1fr 24px;
+        gap: 16px;
+    }
+
+    .post-title {
+        font-size: 20px;
+    }
+
+    /* Video Modal */
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal-controls {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .modal-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .modal-link {
+        justify-content: center;
+        min-height: 48px;
     }
 }
 
 /* ==========================================================================
-   17. Mobile Optimizations (480px and below)
+   19. Small Mobile (480px and below)
    ========================================================================== */
 @media (max-width: 480px) {
-    /* Navigation Improvements */
-    .nav-links {
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-    }
-
-    .nav-link {
-        padding: 8px 4px;
-        font-size: 12px;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-    }
-
     .top-nav {
         padding: 12px 16px;
     }
 
-    /* Hero Video Optimization */
+    .nav-logo {
+        font-size: 18px;
+    }
+
+    /* Hero */
     .hero {
         padding: 0 16px;
     }
 
     .video-wrapper {
-        padding-bottom: 56.25%; /* Full 16:9 on mobile */
+        padding-bottom: 56.25%;
     }
 
     .video-wrapper iframe {
@@ -1711,57 +1950,67 @@ body.course-page {
         min-height: auto;
     }
 
-    /* Video Grid Cards */
-    .video-card {
-        width: 100%;
+    .overlay-title {
+        font-size: 24px;
+        padding: 0 16px;
     }
 
+    /* Video Grid */
     .video-grid-section {
-        padding: 32px 16px 60px;
-    }
-
-    .video-title {
-        font-size: 14px;
-    }
-
-    .video-date {
-        font-size: 11px;
+        padding: 32px 16px 48px;
     }
 
     .grid-title {
-        font-size: 28px;
-        margin-bottom: 40px;
+        font-size: 24px;
+        margin-bottom: 24px;
     }
 
-    /* Course Page & Syllabus */
-    .post-title {
-        font-size: 18px;
+    .video-title {
+        font-size: 15px;
     }
 
-    .post-materials {
-        padding-left: 0;
+    .video-date {
+        font-size: 12px;
     }
 
-    .post-card.expanded .post-materials {
-        padding-left: 0;
+    .video-module {
+        font-size: 11px;
+    }
+
+    /* Course Page */
+    .course-container {
+        padding: 0 16px 40px;
     }
 
     .course-title {
-        font-size: 28px;
+        font-size: 26px;
     }
 
     .course-header {
         padding: 24px 0 32px;
     }
 
-    .course-container {
-        padding: 0 16px 40px;
+    .course-description {
+        font-size: 15px;
     }
 
+    .page-title {
+        font-size: 28px;
+    }
+
+    .page-header {
+        padding: 20px 0 24px;
+    }
+
+    .page-subtitle {
+        font-size: 14px;
+    }
+
+    /* Post Cards */
     .post-card {
         grid-template-columns: 40px 1fr 24px;
         gap: 12px;
-        padding: 20px 0;
+        padding: 16px 0;
     }
 
     .post-icon {
@@ -1774,35 +2023,55 @@ body.course-page {
         height: 32px;
     }
 
-    /* Video Modal Mobile */
-    .modal-content {
-        width: 95%;
+    .post-title {
+        font-size: 17px;
     }
 
-    .modal-controls {
-        flex-direction: column;
-        gap: 16px;
-        align-items: stretch;
+    .post-date {
+        font-size: 12px;
     }
 
-    .modal-links {
-        flex-direction: column;
-        width: 100%;
+    .post-materials {
+        padding-left: 0;
     }
 
-    .modal-link {
-        justify-content: center;
-        padding: 14px 24px;
+    .post-card.expanded .post-materials {
+        padding-left: 0;
+    }
+
+    .material-link {
+        font-size: 13px;
+        padding: 10px 14px;
         min-height: 44px;
     }
 
-    .modal-close {
-        align-self: flex-end;
+    /* Calendar Cards */
+    .calendar-row {
+        padding: 16px;
+    }
+
+    .date-day {
+        font-size: 24px;
+    }
+
+    .cell-content {
+        font-size: 14px;
+    }
+
+    /* Section Headers */
+    .section-header {
+        font-size: 24px;
+        margin: 32px 0 16px;
     }
 
     /* Policy/About Cards */
     .policy-card {
-        padding: 20px;
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .policies-content {
+        font-size: 15px;
     }
 
     .grade-item {
@@ -1812,20 +2081,25 @@ body.course-page {
     }
 
     .grade-percent {
-        font-size: 24px;
+        font-size: 22px;
+    }
+
+    .grade-label {
+        font-size: 14px;
+    }
+
+    /* Project Cards */
+    .project-card {
+        padding: 16px;
+    }
+
+    .project-card h2 {
+        font-size: 22px;
     }
 
     .project-timeline {
         flex-direction: column;
-        gap: 16px;
-    }
-
-    .project-card {
-        padding: 20px;
-    }
-
-    .project-card h2 {
-        font-size: 26px;
+        gap: 12px;
     }
 
     .project-links {
@@ -1834,33 +2108,15 @@ body.course-page {
 
     .project-link {
         text-align: center;
-        min-height: 44px;
+        min-height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    /* Page Headers */
-    .page-title {
-        font-size: 32px;
-    }
-
-    .page-header {
-        padding: 24px 0 32px;
-    }
-
-    .page-subtitle {
-        font-size: 15px;
-    }
-
-    /* Section Headers */
-    .section-header {
-        font-size: 28px;
-    }
-
     /* Featured Card */
     .featured-card {
-        padding: 16px 20px;
+        padding: 14px 16px;
     }
 
     .featured-title {
@@ -1868,20 +2124,32 @@ body.course-page {
     }
 
     .featured-desc {
-        font-size: 13px;
+        font-size: 12px;
     }
 
-    /* Material Links */
-    .material-link {
-        font-size: 13px;
+    /* Section Nav Tabs */
+    .section-nav {
+        gap: 4px;
+        margin-bottom: 24px;
+    }
+
+    .section-tab {
         padding: 8px 12px;
-        min-height: 44px;
+        font-size: 13px;
     }
 
-    /* Calendar on very small screens - maintain horizontal scroll */
-    .calendar-section {
-        margin: 0 -16px;
-        padding: 0 16px;
+    /* Teaching Staff */
+    .teaching-staff-inline {
+        gap: 16px;
+    }
+
+    .staff-member-inline span {
+        font-size: 13px;
+    }
+
+    .staff-member-inline img {
+        width: 32px;
+        height: 32px;
     }
 }
 
