@@ -35,28 +35,28 @@
    ========================================================================== */
 :root {
     /* Colors */
-    --bg: #dcd0c024;
-    --bg-card: #dcd0c024;
-    --text-primary: #1a1a1a;
-    --text-secondary: #555;
-    --text-muted: #888;
-    --border-color: #999;
-    --accent: #1a1a1a;
-    
-    /* Tag Colors - Warm Beige */
-    --tag-due-bg: #fef7ed;
-    --tag-due-text: #9a6b3a;
+    --bg: #fafafa;
+    --bg-card: #fff;
+    --text-primary: #0a0a0a;
+    --text-secondary: #525252;
+    --text-muted: #a3a3a3;
+    --border-color: #e5e5e5;
+    --accent: #0a0a0a;
+
+    /* Tag Colors - Modern */
+    --tag-due-bg: #fef2f2;
+    --tag-due-text: #dc2626;
     --tag-release-bg: #f0fdf4;
-    --tag-release-text: #5c8a6b;
+    --tag-release-text: #16a34a;
     
-    /* Calendar Colors - Warm */
-    --calendar-border: #e5ddd5;
-    --calendar-header-bg: #faf8f5;
-    --calendar-row-bg: #fffefb;
-    --calendar-row-hover: #fdf9f3;
-    --calendar-cell-border: #ebe5dc;
-    --calendar-text: #3d3529;
-    --calendar-text-muted: #8b8075;
+    /* Calendar Colors - Modern */
+    --calendar-border: #e5e5e5;
+    --calendar-header-bg: #f5f5f5;
+    --calendar-row-bg: #fff;
+    --calendar-row-hover: #fafafa;
+    --calendar-cell-border: #e5e5e5;
+    --calendar-text: #0a0a0a;
+    --calendar-text-muted: #737373;
     
     /* Typography */
     --font: 'Neue Haas Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -78,6 +78,16 @@ body {
     line-height: 1.6;
     letter-spacing: -0.02em;
     -webkit-font-smoothing: antialiased;
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* ==========================================================================
@@ -274,7 +284,7 @@ a.staff-member:hover .staff-name {
     font-weight: 500;
     color: var(--text-secondary);
     background: transparent;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.2s;
@@ -300,7 +310,7 @@ a.staff-member:hover .staff-name {
     font-weight: 400;
     margin: 48px 0 24px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .section-header:first-of-type {
@@ -405,7 +415,7 @@ a.staff-member:hover .staff-name {
     align-items: center;
     gap: 24px;
     padding: 28px 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--border-color);
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -418,7 +428,7 @@ a.staff-member:hover .staff-name {
 }
 
 .post-card:last-child {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .post-card.upcoming {
@@ -471,11 +481,11 @@ a.staff-member:hover .staff-name {
 .post-arrow {
     justify-self: end;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .post-card.expanded .post-arrow {
-    transform: rotate(180deg);
+    transform: rotate(-90deg);
 }
 
 .post-arrow svg {
@@ -487,14 +497,22 @@ a.staff-member:hover .staff-name {
 /* Materials expandable section */
 .post-materials {
     grid-column: 1 / -1;
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
     gap: 12px;
-    padding: 8px 0 0 88px;
+    padding: 0 0 0 88px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .post-card.expanded .post-materials {
-    display: flex;
-    flex-wrap: wrap;
+    max-height: 200px;
+    opacity: 1;
+    padding: 16px 0 0 88px;
 }
 
 .post-card.expanded {
@@ -618,7 +636,7 @@ a.staff-member:hover .staff-name {
     border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
 }
 
 .policy-card .section-header {
@@ -740,11 +758,11 @@ a.staff-member:hover .staff-name {
 
 .calendar-row.break {
     opacity: 0.6;
-    background: #faf6f0;
+    background: #f5f5f5;
 }
 
 .calendar-row.highlight {
-    background: linear-gradient(135deg, #fef7ed 0%, #fdf2e3 100%);
+    background: linear-gradient(135deg, #f0f0f0 0%, #f5f5f5 100%);
 }
 
 .calendar-cell {
@@ -842,7 +860,7 @@ a.staff-member:hover .staff-name {
     border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
 }
 
 .project-badge {
@@ -862,13 +880,13 @@ a.staff-member:hover .staff-name {
 }
 
 .project-badge.p1 {
-    background: #fef7ed;
-    color: #9a6b3a;
+    background: #f0f0f0;
+    color: #525252;
 }
 
 .project-badge.p2 {
-    background: #f0fdf4;
-    color: #5c8a6b;
+    background: #e5e5e5;
+    color: #404040;
 }
 
 .project-card h2 {
@@ -889,7 +907,7 @@ a.staff-member:hover .staff-name {
     gap: 32px;
     margin-bottom: 24px;
     padding-bottom: 24px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .timeline-item {
@@ -919,7 +937,7 @@ a.staff-member:hover .staff-name {
 }
 
 .milestones {
-    background: #f8f8f8;
+    background: #f5f5f5;
     border-radius: 8px;
     padding: 20px 24px;
     margin-bottom: 24px;
@@ -1052,7 +1070,7 @@ body.course-page {
 .course-header {
     text-align: center;
     padding: 40px 0 48px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 32px;
 }
 
@@ -1109,12 +1127,33 @@ body.course-page {
     text-decoration: underline;
 }
 
+/* Page Header (for standalone pages) */
+.page-header {
+    padding: 40px 0 48px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+
+.page-title {
+    font-family: var(--font);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+}
+
+.page-subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+}
+
 /* Section Navigation Tabs */
 .section-nav {
     display: flex;
     gap: 8px;
     margin-bottom: 40px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--border-color);
     padding-bottom: 0;
 }
 
@@ -1493,7 +1532,7 @@ body.course-page {
     }
 
     .calendar-cell:first-child {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid var(--border-color);
         padding: 12px;
     }
 
@@ -1609,6 +1648,240 @@ body.course-page {
     .teaching-staff-inline {
         flex-direction: column;
         gap: 12px;
+    }
+
+    /* Calendar Horizontal Scroll */
+    .calendar-section {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -24px;
+        padding: 0 24px;
+    }
+
+    .calendar-grid {
+        min-width: 700px;
+    }
+
+    /* Reset calendar column hiding for horizontal scroll */
+    .calendar-header,
+    .calendar-row {
+        grid-template-columns: 80px 1.2fr 1fr 0.8fr 0.8fr;
+    }
+
+    .calendar-cell:nth-child(4),
+    .calendar-cell:last-child {
+        display: flex;
+    }
+}
+
+/* ==========================================================================
+   17. Mobile Optimizations (480px and below)
+   ========================================================================== */
+@media (max-width: 480px) {
+    /* Navigation Improvements */
+    .nav-links {
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .nav-link {
+        padding: 8px 4px;
+        font-size: 12px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    .top-nav {
+        padding: 12px 16px;
+    }
+
+    /* Hero Video Optimization */
+    .hero {
+        padding: 0 16px;
+    }
+
+    .video-wrapper {
+        padding-bottom: 56.25%; /* Full 16:9 on mobile */
+    }
+
+    .video-wrapper iframe {
+        height: 100%;
+        min-height: auto;
+    }
+
+    /* Video Grid Cards */
+    .video-card {
+        width: 100%;
+    }
+
+    .video-grid-section {
+        padding: 32px 16px 60px;
+    }
+
+    .video-title {
+        font-size: 14px;
+    }
+
+    .video-date {
+        font-size: 11px;
+    }
+
+    .grid-title {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    /* Course Page & Syllabus */
+    .post-title {
+        font-size: 18px;
+    }
+
+    .post-materials {
+        padding-left: 0;
+    }
+
+    .post-card.expanded .post-materials {
+        padding-left: 0;
+    }
+
+    .course-title {
+        font-size: 28px;
+    }
+
+    .course-header {
+        padding: 24px 0 32px;
+    }
+
+    .course-container {
+        padding: 0 16px 40px;
+    }
+
+    .post-card {
+        grid-template-columns: 40px 1fr 24px;
+        gap: 12px;
+        padding: 20px 0;
+    }
+
+    .post-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .post-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Video Modal Mobile */
+    .modal-content {
+        width: 95%;
+    }
+
+    .modal-controls {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .modal-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .modal-link {
+        justify-content: center;
+        padding: 14px 24px;
+        min-height: 44px;
+    }
+
+    .modal-close {
+        align-self: flex-end;
+    }
+
+    /* Policy/About Cards */
+    .policy-card {
+        padding: 20px;
+    }
+
+    .grade-item {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+
+    .grade-percent {
+        font-size: 24px;
+    }
+
+    .project-timeline {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .project-card {
+        padding: 20px;
+    }
+
+    .project-card h2 {
+        font-size: 26px;
+    }
+
+    .project-links {
+        flex-direction: column;
+    }
+
+    .project-link {
+        text-align: center;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Page Headers */
+    .page-title {
+        font-size: 32px;
+    }
+
+    .page-header {
+        padding: 24px 0 32px;
+    }
+
+    .page-subtitle {
+        font-size: 15px;
+    }
+
+    /* Section Headers */
+    .section-header {
+        font-size: 28px;
+    }
+
+    /* Featured Card */
+    .featured-card {
+        padding: 16px 20px;
+    }
+
+    .featured-title {
+        font-size: 14px;
+    }
+
+    .featured-desc {
+        font-size: 13px;
+    }
+
+    /* Material Links */
+    .material-link {
+        font-size: 13px;
+        padding: 8px 12px;
+        min-height: 44px;
+    }
+
+    /* Calendar on very small screens - maintain horizontal scroll */
+    .calendar-section {
+        margin: 0 -16px;
+        padding: 0 16px;
     }
 }
 
