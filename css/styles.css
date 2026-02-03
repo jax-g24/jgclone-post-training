@@ -1187,6 +1187,8 @@ body.course-page {
 .hero {
     position: relative;
     width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
     padding: 0 60px;
 }
 
@@ -1228,19 +1230,18 @@ body.course-page {
 .video-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 53.5%;
+    padding-bottom: 56.25%; /* Standard 16:9 aspect ratio */
     background: #000;
     overflow: hidden;
+    max-height: 70vh;
 }
 
 .video-wrapper iframe {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 56.25vw;
-    min-height: 100%;
+    height: 100%;
     pointer-events: none;
 }
 
