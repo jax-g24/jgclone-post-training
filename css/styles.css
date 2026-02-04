@@ -423,7 +423,7 @@ a.staff-member:hover .staff-name {
 }
 
 .module-card.upcoming {
-    opacity: 1;
+    opacity: 0.6;
 }
 
 .module-hero {
