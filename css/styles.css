@@ -1744,11 +1744,6 @@ body.course-page {
         padding: 20px 40px;
         width: 100%;
         text-align: center;
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .nav-link:first-child {
-        border-top: 1px solid var(--border-color);
     }
 
     .top-nav {
