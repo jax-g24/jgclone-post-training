@@ -418,13 +418,8 @@ a.staff-member:hover .staff-name {
     overflow: hidden;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.module-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
 
 .module-card.upcoming {
     opacity: 0.6;
@@ -533,13 +528,9 @@ a.staff-member:hover .staff-name {
 }
 
 .lecture-links {
-    display: none;
+    display: flex;
     gap: 8px;
     padding: 0 16px 14px;
-}
-
-.lecture-item.active .lecture-links {
-    display: flex;
 }
 
 .lecture-link {
@@ -761,9 +752,6 @@ a.staff-member:hover .staff-name {
     background: var(--calendar-row-bg);
 }
 
-.calendar-row:hover {
-    background: var(--calendar-row-hover);
-}
 
 .calendar-row.break {
     opacity: 0.6;
@@ -1773,9 +1761,6 @@ body.course-page {
         gap: 16px;
     }
 
-    .calendar-row:hover {
-        background: var(--bg-card);
-    }
 
     .calendar-cell {
         padding: 0;
