@@ -434,18 +434,6 @@ a.staff-member:hover .staff-name {
     overflow: hidden;
 }
 
-.module-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    background-size: cover;
-    background-position: center;
-    filter: blur(6px);
-    transform: scale(1.1);
-    mask-image: linear-gradient(to top, black 0%, transparent 50%);
-    -webkit-mask-image: linear-gradient(to top, black 0%, transparent 50%);
-}
 
 .module-hero::after {
     content: '';
