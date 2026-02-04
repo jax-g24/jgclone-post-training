@@ -443,15 +443,15 @@ a.staff-member:hover .staff-name {
     background-position: center;
     filter: blur(6px);
     transform: scale(1.1);
-    mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to top, black 0%, black 40%, transparent 100%);
+    mask-image: linear-gradient(to top, black 0%, transparent 50%);
+    -webkit-mask-image: linear-gradient(to top, black 0%, transparent 50%);
 }
 
 .module-hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%);
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
 }
 
 .module-overlay {
