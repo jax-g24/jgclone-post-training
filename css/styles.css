@@ -423,7 +423,7 @@ a.staff-member:hover .staff-name {
 }
 
 .module-card.upcoming {
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .module-hero {
@@ -451,7 +451,7 @@ a.staff-member:hover .staff-name {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
 }
 
 .module-overlay {
