@@ -1646,8 +1646,13 @@ body.course-page {
     }
 
     .teaching-staff-inline {
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .staff-member-inline {
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
     }
 }
 
