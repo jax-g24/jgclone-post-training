@@ -1647,12 +1647,16 @@ body.course-page {
 
     .teaching-staff-inline {
         flex-direction: row;
-        gap: 24px;
+        gap: 48px;
     }
 
     .staff-member-inline {
         flex-direction: column;
         gap: 8px;
+    }
+
+    .course-header {
+        text-align: left;
     }
 }
 
