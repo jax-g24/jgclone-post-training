@@ -405,36 +405,31 @@ a.staff-member:hover .staff-name {
    10. Post Cards (Syllabus)
    ========================================================================== */
 .posts-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
 }
 
 .post-card {
-    display: grid;
-    grid-template-columns: 280px 1fr 32px;
-    align-items: center;
-    gap: 24px;
-    padding: 28px 0;
-    border-top: 1px solid var(--border-color);
-    cursor: pointer;
-    transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .post-card:hover {
-    background: rgba(0,0,0,0.02);
-    margin: 0 -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.post-card:last-child {
-    border-bottom: 1px solid var(--border-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .post-card.upcoming {
-    opacity: 0.4;
-    pointer-events: none;
-    cursor: default;
+    opacity: 0.5;
 }
 
 .post-icon {
@@ -442,107 +437,89 @@ a.staff-member:hover .staff-name {
 }
 
 .post-icon svg {
-    width: 48px;
-    height: 48px;
-    stroke: var(--text-primary);
-    stroke-width: 1;
-    fill: none;
+    display: none;
 }
 
 .post-title-group {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    margin-bottom: 20px;
 }
 
 .post-title {
     font-family: var(--font);
-    font-size: 26px;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
 }
 
 .post-date {
     font-size: 14px;
     color: var(--text-muted);
+    font-weight: 500;
 }
 
 .post-description {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.6;
     color: var(--text-secondary);
+    margin-bottom: 16px;
+    display: none;
 }
 
 .post-arrow {
-    justify-self: end;
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.post-card.expanded .post-arrow {
-    transform: rotate(-90deg);
+    display: none;
 }
 
 .post-arrow svg {
-    width: 20px;
-    height: 20px;
-    color: var(--text-primary);
+    display: none;
 }
 
-/* Materials expandable section */
+/* Materials - always visible as buttons */
 .post-materials {
-    grid-column: 1 / -1;
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    padding: 0;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.post-card.expanded .post-materials {
-    max-height: 200px;
-    opacity: 1;
-    padding: 16px 0 0 0;
-}
-
-.post-card.expanded {
-    padding-bottom: 20px;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .material-link {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    font-weight: 500;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
-    padding: 6px 14px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    transition: background 0.15s ease;
+    padding: 10px 16px;
+    background: rgba(0, 0, 0, 0.04);
+    border: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
 
 .material-link:hover {
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
 .material-link svg {
     width: 16px;
     height: 16px;
+    opacity: 0.7;
 }
 
 .material-link.disabled {
-    opacity: 0.35;
+    opacity: 0.4;
     pointer-events: none;
     cursor: default;
-    border-style: dashed;
+    background: rgba(0, 0, 0, 0.02);
 }
 
 .material-credit {
@@ -550,7 +527,7 @@ a.staff-member:hover .staff-name {
     font-size: 11px;
     color: var(--text-muted);
     font-style: italic;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
 /* Calendar material links */
@@ -1461,13 +1438,8 @@ body.course-page {
         margin-top: 48px;
     }
 
-    .post-card {
-        grid-template-columns: 1fr 24px;
-        gap: 16px;
-    }
-
-    .post-description {
-        display: none;
+    .posts-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
 }
 
@@ -1499,8 +1471,8 @@ body.course-page {
         font-size: 44px;
     }
 
-    .post-title {
-        font-size: 22px;
+    .posts-list {
+        grid-template-columns: 1fr;
     }
 
     .featured-content {
@@ -1876,13 +1848,26 @@ body.course-page {
     }
 
     /* Post Cards */
-    .post-card {
-        grid-template-columns: 1fr 24px;
+    .posts-list {
+        grid-template-columns: 1fr;
         gap: 16px;
     }
 
+    .post-card {
+        padding: 20px;
+    }
+
     .post-title {
-        font-size: 20px;
+        font-size: 18px;
+    }
+
+    .post-title-group {
+        margin-bottom: 16px;
+    }
+
+    .material-link {
+        padding: 8px 12px;
+        font-size: 12px;
     }
 
     /* Video Modal */
@@ -1991,13 +1976,16 @@ body.course-page {
 
     /* Post Cards */
     .post-card {
-        grid-template-columns: 1fr 24px;
-        gap: 12px;
-        padding: 16px 0;
+        padding: 16px;
+        border-radius: 12px;
     }
 
     .post-title {
-        font-size: 17px;
+        font-size: 16px;
+    }
+
+    .post-title-group {
+        margin-bottom: 12px;
     }
 
     .post-date {
@@ -2005,17 +1993,13 @@ body.course-page {
     }
 
     .post-materials {
-        padding-left: 0;
-    }
-
-    .post-card.expanded .post-materials {
-        padding-left: 0;
+        gap: 8px;
     }
 
     .material-link {
-        font-size: 13px;
-        padding: 10px 14px;
-        min-height: 44px;
+        font-size: 11px;
+        padding: 8px 10px;
+        min-height: 40px;
     }
 
     /* Calendar Cards */
