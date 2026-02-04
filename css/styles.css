@@ -1647,7 +1647,7 @@ body.course-page {
 
     .teaching-staff-inline {
         flex-direction: row;
-        gap: 72px;
+        gap: 100px;
     }
 
     .staff-member-inline {
