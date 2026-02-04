@@ -1086,7 +1086,6 @@ body.course-page {
 .course-header {
     text-align: center;
     padding: 40px 0 48px;
-    border-bottom: 1px solid var(--border-color);
     margin-bottom: 32px;
 }
 
@@ -1146,7 +1145,6 @@ body.course-page {
 /* Page Header (for standalone pages) */
 .page-header {
     padding: 40px 0 48px;
-    border-bottom: 1px solid var(--border-color);
     margin-bottom: 40px;
 }
 
@@ -1721,7 +1719,9 @@ body.course-page {
         right: 0;
         width: 100%;
         height: 100vh;
-        background: var(--bg);
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
