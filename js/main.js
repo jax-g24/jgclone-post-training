@@ -8,9 +8,35 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initNavigation();
     initMaterialsToggle();
+    initLectureTabs();
     handleHashNavigation();
     initTopNavLinks();
 });
+
+/**
+ * Initialize lecture tab toggling in module cards
+ */
+function initLectureTabs() {
+    const lectureTabs = document.querySelectorAll('.lecture-tab');
+
+    lectureTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const lectureItem = tab.closest('.lecture-item');
+            const wasActive = lectureItem.classList.contains('active');
+
+            // Close all lecture items in this module
+            const moduleCard = lectureItem.closest('.module-card');
+            moduleCard.querySelectorAll('.lecture-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Toggle clicked item (open if it was closed)
+            if (!wasActive) {
+                lectureItem.classList.add('active');
+            }
+        });
+    });
+}
 
 /**
  * Initialize mobile hamburger menu

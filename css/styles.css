@@ -404,130 +404,166 @@ a.staff-member:hover .staff-name {
 /* ==========================================================================
    10. Post Cards (Syllabus)
    ========================================================================== */
-.posts-list {
+/* ==========================================================================
+   Module Cards (Syllabus)
+   ========================================================================== */
+.modules-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
 }
 
-.post-card {
-    display: flex;
-    flex-direction: column;
-    padding: 28px;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+.module-card {
     border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.post-card:hover {
+.module-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
-.post-card.upcoming {
+.module-card.upcoming {
+    opacity: 0.6;
+}
+
+.module-hero {
+    position: relative;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.module-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    transform: scale(1.1);
+}
+
+.module-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+}
+
+.module-overlay {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    color: white;
+}
+
+.module-number {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+    margin-bottom: 4px;
+}
+
+.module-title {
+    font-family: var(--font);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.module-lectures {
+    padding: 8px;
+}
+
+.lecture-item {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.lecture-item.upcoming {
     opacity: 0.5;
 }
 
-.post-icon {
-    display: none;
-}
-
-.post-icon svg {
-    display: none;
-}
-
-.post-title-group {
+.lecture-tab {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+    border-radius: 8px;
 }
 
-.post-title {
+.lecture-tab:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.lecture-item.active .lecture-tab {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.lecture-name {
     font-family: var(--font);
-    font-size: 22px;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
+    font-size: 14px;
+    font-weight: 500;
     color: var(--text-primary);
 }
 
-.post-date {
-    font-size: 14px;
+.lecture-date {
+    font-size: 12px;
     color: var(--text-muted);
     font-weight: 500;
 }
 
-.post-description {
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
+.lecture-links {
     display: none;
+    gap: 8px;
+    padding: 0 16px 14px;
 }
 
-.post-arrow {
-    display: none;
-}
-
-.post-arrow svg {
-    display: none;
-}
-
-/* Materials - always visible as buttons */
-.post-materials {
+.lecture-item.active .lecture-links {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: auto;
-    padding-top: 16px;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.material-link {
+.lecture-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
-    padding: 10px 16px;
-    background: rgba(0, 0, 0, 0.04);
-    border: none;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+    padding: 8px 14px;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
+    transition: all 0.15s ease;
 }
 
-.material-link:hover {
-    background: rgba(0, 0, 0, 0.08);
-    transform: translateY(-1px);
+.lecture-link:hover {
+    background: rgba(0, 0, 0, 0.1);
 }
 
-.material-link svg {
-    width: 16px;
-    height: 16px;
-    opacity: 0.7;
-}
-
-.material-link.disabled {
+.lecture-link.disabled {
     opacity: 0.4;
     pointer-events: none;
-    cursor: default;
-    background: rgba(0, 0, 0, 0.02);
-}
-
-.material-credit {
-    width: 100%;
-    font-size: 11px;
-    color: var(--text-muted);
-    font-style: italic;
-    margin-top: 8px;
+    background: rgba(0, 0, 0, 0.03);
 }
 
 /* Calendar material links */
@@ -1438,8 +1474,8 @@ body.course-page {
         margin-top: 48px;
     }
 
-    .posts-list {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    .modules-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1471,7 +1507,7 @@ body.course-page {
         font-size: 44px;
     }
 
-    .posts-list {
+    .modules-grid {
         grid-template-columns: 1fr;
     }
 
@@ -1847,27 +1883,22 @@ body.course-page {
         font-size: 36px;
     }
 
-    /* Post Cards */
-    .posts-list {
+    /* Module Cards */
+    .modules-grid {
         grid-template-columns: 1fr;
         gap: 16px;
     }
 
-    .post-card {
-        padding: 20px;
+    .module-hero {
+        height: 140px;
     }
 
-    .post-title {
-        font-size: 18px;
+    .module-title {
+        font-size: 24px;
     }
 
-    .post-title-group {
-        margin-bottom: 16px;
-    }
-
-    .material-link {
-        padding: 8px 12px;
-        font-size: 12px;
+    .lecture-name {
+        font-size: 13px;
     }
 
     /* Video Modal */
@@ -1974,32 +2005,38 @@ body.course-page {
         font-size: 14px;
     }
 
-    /* Post Cards */
-    .post-card {
+    /* Module Cards */
+    .module-hero {
+        height: 120px;
+    }
+
+    .module-overlay {
         padding: 16px;
-        border-radius: 12px;
     }
 
-    .post-title {
-        font-size: 16px;
+    .module-title {
+        font-size: 20px;
     }
 
-    .post-title-group {
-        margin-bottom: 12px;
+    .module-number {
+        font-size: 10px;
     }
 
-    .post-date {
+    .lecture-tab {
+        padding: 12px 14px;
+    }
+
+    .lecture-name {
         font-size: 12px;
     }
 
-    .post-materials {
-        gap: 8px;
+    .lecture-date {
+        font-size: 11px;
     }
 
-    .material-link {
+    .lecture-link {
         font-size: 11px;
-        padding: 8px 10px;
-        min-height: 40px;
+        padding: 6px 10px;
     }
 
     /* Calendar Cards */
