@@ -488,7 +488,9 @@ a.staff-member:hover .staff-name {
 }
 
 .lecture-item {
+    position: relative;
     padding: 12px;
+    padding-bottom: 14px;
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.02);
     margin-bottom: 8px;
@@ -533,14 +535,15 @@ a.staff-member:hover .staff-name {
 }
 
 .lecture-tag {
-    display: inline-block;
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     padding: 4px 8px;
     border-radius: 4px;
-    margin-bottom: 8px;
 }
 
 .lecture-tag.tag-due {
