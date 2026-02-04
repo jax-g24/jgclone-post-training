@@ -411,7 +411,7 @@ a.staff-member:hover .staff-name {
 
 .post-card {
     display: grid;
-    grid-template-columns: 64px 280px 1fr 32px;
+    grid-template-columns: 280px 1fr 32px;
     align-items: center;
     gap: 24px;
     padding: 28px 0;
@@ -438,11 +438,7 @@ a.staff-member:hover .staff-name {
 }
 
 .post-icon {
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: none;
 }
 
 .post-icon svg {
@@ -500,7 +496,7 @@ a.staff-member:hover .staff-name {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    padding: 0 0 0 88px;
+    padding: 0;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
@@ -512,7 +508,7 @@ a.staff-member:hover .staff-name {
 .post-card.expanded .post-materials {
     max-height: 200px;
     opacity: 1;
-    padding: 16px 0 0 88px;
+    padding: 16px 0 0 0;
 }
 
 .post-card.expanded {
@@ -1466,22 +1462,12 @@ body.course-page {
     }
 
     .post-card {
-        grid-template-columns: 48px 1fr 24px;
+        grid-template-columns: 1fr 24px;
         gap: 16px;
     }
 
     .post-description {
         display: none;
-    }
-
-    .post-icon {
-        width: 48px;
-        height: 48px;
-    }
-
-    .post-icon svg {
-        width: 40px;
-        height: 40px;
     }
 }
 
@@ -1891,7 +1877,7 @@ body.course-page {
 
     /* Post Cards */
     .post-card {
-        grid-template-columns: 48px 1fr 24px;
+        grid-template-columns: 1fr 24px;
         gap: 16px;
     }
 
@@ -2005,19 +1991,9 @@ body.course-page {
 
     /* Post Cards */
     .post-card {
-        grid-template-columns: 40px 1fr 24px;
+        grid-template-columns: 1fr 24px;
         gap: 12px;
         padding: 16px 0;
-    }
-
-    .post-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    .post-icon svg {
-        width: 32px;
-        height: 32px;
     }
 
     .post-title {
