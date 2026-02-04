@@ -408,18 +408,19 @@ a.staff-member:hover .staff-name {
    Module Cards (Syllabus)
    ========================================================================== */
 .modules-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .module-card {
-    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    border-radius: 12px;
     overflow: hidden;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
 }
-
 
 .module-card.upcoming {
     opacity: 0.6;
@@ -427,7 +428,7 @@ a.staff-member:hover .staff-name {
 
 .module-hero {
     position: relative;
-    height: 180px;
+    min-height: 100%;
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -440,15 +441,15 @@ a.staff-member:hover .staff-name {
     background: inherit;
     background-size: cover;
     background-position: center;
-    filter: blur(8px);
-    transform: scale(1.1);
+    filter: blur(3px);
+    transform: scale(1.05);
 }
 
 .module-hero::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+    background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
 }
 
 .module-overlay {
@@ -458,12 +459,12 @@ a.staff-member:hover .staff-name {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 24px;
+    padding: 20px;
     color: white;
 }
 
 .module-number {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -473,18 +474,21 @@ a.staff-member:hover .staff-name {
 
 .module-title {
     font-family: var(--font);
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.2;
 }
 
 .module-lectures {
-    padding: 8px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .lecture-item {
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
 }
 
@@ -497,21 +501,12 @@ a.staff-member:hover .staff-name {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 16px;
+    padding: 8px 10px;
     background: transparent;
     border: none;
-    cursor: pointer;
+    cursor: default;
     text-align: left;
-    transition: background 0.15s ease;
-    border-radius: 8px;
-}
-
-.lecture-tab:hover {
-    background: rgba(0, 0, 0, 0.04);
-}
-
-.lecture-item.active .lecture-tab {
-    background: rgba(0, 0, 0, 0.06);
+    border-radius: 6px;
 }
 
 .lecture-name {
@@ -529,8 +524,8 @@ a.staff-member:hover .staff-name {
 
 .lecture-links {
     display: flex;
-    gap: 8px;
-    padding: 0 16px 14px;
+    gap: 6px;
+    padding: 0 10px 8px;
 }
 
 .lecture-link {
@@ -1462,8 +1457,8 @@ body.course-page {
         margin-top: 48px;
     }
 
-    .modules-grid {
-        grid-template-columns: 1fr;
+    .module-card {
+        grid-template-columns: 240px 1fr;
     }
 }
 
@@ -1495,8 +1490,12 @@ body.course-page {
         font-size: 44px;
     }
 
-    .modules-grid {
+    .module-card {
         grid-template-columns: 1fr;
+    }
+
+    .module-hero {
+        height: 160px;
     }
 
     .featured-content {
@@ -1869,9 +1868,8 @@ body.course-page {
     }
 
     /* Module Cards */
-    .modules-grid {
+    .module-card {
         grid-template-columns: 1fr;
-        gap: 16px;
     }
 
     .module-hero {
@@ -1879,11 +1877,7 @@ body.course-page {
     }
 
     .module-title {
-        font-size: 24px;
-    }
-
-    .lecture-name {
-        font-size: 13px;
+        font-size: 22px;
     }
 
     /* Video Modal */
@@ -1996,32 +1990,32 @@ body.course-page {
     }
 
     .module-overlay {
-        padding: 16px;
+        padding: 14px;
     }
 
     .module-title {
-        font-size: 20px;
+        font-size: 18px;
     }
 
-    .module-number {
-        font-size: 10px;
-    }
-
-    .lecture-tab {
+    .module-lectures {
         padding: 12px 14px;
     }
 
-    .lecture-name {
-        font-size: 12px;
+    .lecture-tab {
+        padding: 6px 8px;
     }
 
-    .lecture-date {
-        font-size: 11px;
+    .lecture-name {
+        font-size: 13px;
+    }
+
+    .lecture-links {
+        padding: 0 8px 6px;
     }
 
     .lecture-link {
         font-size: 11px;
-        padding: 6px 10px;
+        padding: 5px 8px;
     }
 
     /* Calendar Cards */
