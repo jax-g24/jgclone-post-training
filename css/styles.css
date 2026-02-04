@@ -422,7 +422,7 @@ a.staff-member:hover .staff-name {
     border: 1px solid var(--border-color);
 }
 
-.module-card.upcoming {
+.module-card.upcoming .module-lectures {
     opacity: 0.6;
 }
 
