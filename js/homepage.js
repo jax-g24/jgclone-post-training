@@ -56,7 +56,12 @@
 
             // Open modal
             if (videoId && !videoId.startsWith('VIDEO_ID')) {
-                modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                // Check if it's a full URL (Bunny) or YouTube ID
+                if (videoId.startsWith('http')) {
+                    modalVideo.src = videoId;
+                } else {
+                    modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                }
             }
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
