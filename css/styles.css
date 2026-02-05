@@ -655,7 +655,6 @@ a.staff-member:hover .staff-name {
     border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
-    border: 1px solid var(--border-color);
 }
 
 .policy-card .section-header {
@@ -742,9 +741,8 @@ a.staff-member:hover .staff-name {
    ========================================================================== */
 .calendar-grid {
     display: grid;
-    gap: 1px;
-    background: var(--calendar-border);
-    border: 1px solid var(--calendar-border);
+    gap: 0;
+    background: transparent;
     border-radius: 12px;
     overflow: hidden;
 }
@@ -783,7 +781,6 @@ a.staff-member:hover .staff-name {
 
 .calendar-cell {
     padding: 16px;
-    border-left: 1px solid var(--calendar-cell-border);
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -876,7 +873,6 @@ a.staff-member:hover .staff-name {
     border-radius: 12px;
     padding: 32px;
     margin-bottom: 24px;
-    border: 1px solid var(--border-color);
 }
 
 .project-badge {
@@ -1242,7 +1238,7 @@ body.course-page {
 .video-wrapper {
     position: relative;
     width: 100%;
-    height: calc(100vh - 80px);
+    padding-bottom: 56.25%;
     background: #000;
     overflow: hidden;
 }
