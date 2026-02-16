@@ -15,12 +15,13 @@ const links = [
 
 export default function BottomNav() {
   const pathname = usePathname();
-  const { activeModuleTitle } = useModule();
+  const { activeModuleTitle, setActiveModuleTitle } = useModule();
   const pillRef = useRef(null);
   const linkRefs = useRef({});
   const moduleRef = useRef(null);
   const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 });
   const rafRef = useRef(null);
+  const [transitioning, setTransitioning] = useState(false);
 
   const isModuleActive = !!activeModuleTitle;
   const activeHref = links.find((l) => l.href === pathname)?.href || null;
@@ -50,6 +51,7 @@ export default function BottomNav() {
 
   // Continuously measure during module open/close animation
   useEffect(() => {
+    setTransitioning(true);
     let running = true;
     const tick = () => {
       if (!running) return;
@@ -58,10 +60,11 @@ export default function BottomNav() {
     };
     tick();
 
-    // Stop after animation settles (1.2s)
+    // Stop after animation settles
     const timer = setTimeout(() => {
       running = false;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      setTransitioning(false);
     }, 1200);
 
     return () => {
@@ -78,11 +81,17 @@ export default function BottomNav() {
     return () => ro.disconnect();
   }, [measure]);
 
+  const handleLinkClick = () => {
+    if (isModuleActive) {
+      setActiveModuleTitle(null);
+    }
+  };
+
   return (
     <nav className="bottom-nav">
       <div className={`bottom-nav-pill ${isModuleActive ? 'has-module' : ''}`} ref={pillRef}>
         <div
-          className="bottom-nav-indicator"
+          className={`bottom-nav-indicator ${transitioning ? 'animating' : ''}`}
           style={{
             transform: `translateX(${indicator.left}px)`,
             width: indicator.width,
@@ -97,7 +106,8 @@ export default function BottomNav() {
             key={href}
             href={href}
             ref={(el) => { linkRefs.current[href] = el; }}
-            className={`bottom-nav-link ${pathname === href && !(href === '/' && isModuleActive) ? 'active' : ''}`}
+            className={`bottom-nav-link ${pathname === href && !isModuleActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             {label}
           </Link>

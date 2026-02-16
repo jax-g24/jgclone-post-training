@@ -83,14 +83,12 @@ export default function PdfSlides({ src }) {
         const canvas = thumbsRef.current[i - 1];
         if (!canvas) continue;
         const vp = page.getViewport({ scale: 1 });
-        const thumbWidth = 120;
+        const thumbPx = 120;
         const dpr = window.devicePixelRatio || 1;
-        const scale = (thumbWidth / vp.width) * dpr;
+        const scale = (thumbPx / vp.width) * dpr;
         const viewport = page.getViewport({ scale });
         canvas.width = viewport.width;
         canvas.height = viewport.height;
-        canvas.style.width = thumbWidth + 'px';
-        canvas.style.height = (thumbWidth * vp.height / vp.width) + 'px';
         await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
         if (!cancelled) {
           setRenderedThumbs((prev) => new Set(prev).add(i - 1));
@@ -134,19 +132,26 @@ export default function PdfSlides({ src }) {
           <span className="pdf-page-num">{pageNum} / {numPages}</span>
         )}
       </div>
-      {numPages > 1 && (
-        <div className={`pdf-thumb-strip ${renderedThumbs.size > 0 ? 'visible' : ''}`} ref={thumbStripRef}>
-          {Array.from({ length: numPages }, (_, i) => (
-            <button
-              key={i}
-              className={`pdf-thumb ${renderedThumbs.has(i) ? 'rendered' : ''} ${pageNum === i + 1 ? 'active' : ''}`}
-              onClick={() => setPageNum(i + 1)}
-            >
-              <canvas ref={(el) => { thumbsRef.current[i] = el; }} />
-            </button>
-          ))}
-        </div>
-      )}
+      {numPages > 1 && (() => {
+        const visible = 8;
+        let start = Math.max(0, pageNum - 1 - Math.floor(visible / 2));
+        start = Math.min(start, Math.max(0, numPages - visible));
+        const end = Math.min(numPages, start + visible);
+        return (
+          <div className={`pdf-thumb-strip ${renderedThumbs.size > 0 ? 'visible' : ''}`} ref={thumbStripRef}>
+            {Array.from({ length: numPages }, (_, i) => (
+              <button
+                key={i}
+                className={`pdf-thumb ${renderedThumbs.has(i) ? 'rendered' : ''} ${pageNum === i + 1 ? 'active' : ''}`}
+                onClick={() => setPageNum(i + 1)}
+                style={i >= start && i < end ? {} : { display: 'none' }}
+              >
+                <canvas ref={(el) => { thumbsRef.current[i] = el; }} />
+              </button>
+            ))}
+          </div>
+        );
+      })()}
     </div>
   );
 }

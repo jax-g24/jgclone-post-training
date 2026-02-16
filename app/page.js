@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PdfSlides from './components/PdfSlides';
 import { useModule } from './components/ModuleContext';
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
-  const { setActiveModuleTitle } = useModule();
+  const { activeModuleTitle, setActiveModuleTitle } = useModule();
 
   const tiles = [
     {
@@ -58,6 +58,16 @@ export default function HomePage() {
   useEffect(() => {
     setActiveModuleTitle(active ? active.title : null);
   }, [active, setActiveModuleTitle]);
+
+  // Close module panel when nav clears the module title externally
+  const prevModuleTitle = useRef(activeModuleTitle);
+  useEffect(() => {
+    // Only close if title went from something to null (external clear)
+    if (prevModuleTitle.current && !activeModuleTitle && activeModule !== null) {
+      setActiveModule(null);
+    }
+    prevModuleTitle.current = activeModuleTitle;
+  }, [activeModuleTitle, activeModule]);
 
   return (
     <div className="home-canvas">

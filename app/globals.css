@@ -2224,7 +2224,7 @@ body.course-page {
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: #ffffff;
+    background: #eeeeee;
     font-family: var(--font);
     -webkit-font-smoothing: antialiased;
     animation: fadeIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -2319,7 +2319,7 @@ body.course-page {
 }
 
 .tile-image {
-    width: 280px;
+    width: 360px;
     aspect-ratio: 16 / 9;
     border-radius: 20px;
     overflow: hidden;
@@ -2490,7 +2490,7 @@ body.course-page {
     align-items: center;
     padding: 40px 60px;
     overflow-y: auto;
-    background: #ffffff;
+    background: #eeeeee;
     transform: translateX(100%);
     opacity: 0;
     filter: blur(12px);
@@ -2646,24 +2646,17 @@ body.course-page {
 }
 
 .pdf-thumb-strip {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
     gap: 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    overscroll-behavior-x: contain;
     padding: 0;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     opacity: 0;
     transition: opacity 0.4s ease;
+    overflow: hidden;
 }
 
 .pdf-thumb-strip.visible {
     opacity: 1;
-}
-
-.pdf-thumb-strip::-webkit-scrollbar {
-    display: none;
 }
 
 .pdf-thumb {
@@ -2694,6 +2687,8 @@ body.course-page {
 
 .pdf-thumb canvas {
     display: block;
+    width: 100%;
+    height: auto;
     border-radius: 6px;
 }
 
