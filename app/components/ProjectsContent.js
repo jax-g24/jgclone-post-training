@@ -4,7 +4,6 @@ export default function ProjectsContent() {
       <main className="course-content">
         <div className="projects-section active">
           <div className="project-card">
-            <div className="project-badge final">Final Project</div>
             <h2>Final Project</h2>
             <p className="subtitle">Design and build a product demo AI product prototype that demonstrates mastery of course concepts. Teams of 2-4 students will propose, build, and present a demo.</p>
 

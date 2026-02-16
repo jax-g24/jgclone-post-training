@@ -413,6 +413,7 @@ a.staff-member:hover .staff-name {
     gap: 20px;
 }
 
+
 .module-card {
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -2540,15 +2541,11 @@ body.course-page {
 .detail-glass {
     width: 100%;
     max-width: 1100px;
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 24px;
-    padding: 20px 24px 24px;
-    box-shadow:
-        0 24px 80px rgba(0, 0, 0, 0.08),
-        0 4px 16px rgba(0, 0, 0, 0.04);
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
     margin-bottom: 20px;
 }
 
@@ -2592,7 +2589,7 @@ body.course-page {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -2663,7 +2660,7 @@ body.course-page {
     flex-shrink: 0;
     padding: 0;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     background: none;
     cursor: pointer;
     opacity: 0;
@@ -2689,7 +2686,7 @@ body.course-page {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 6px;
+    border-radius: 0;
 }
 
 /* ==========================================================================
@@ -2750,20 +2747,21 @@ body.course-page {
 
 .sq-day-date {
     display: flex;
-    align-items: baseline;
-    gap: 4px;
+    flex-direction: column;
+    gap: 0;
 }
 
 .sq-day-month {
     font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    font-weight: 500;
+    letter-spacing: 0.01em;
     color: rgba(255, 255, 255, 0.4);
+    line-height: 1;
+    margin-top: 2px;
 }
 
 .sq-day-num {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 600;
     color: #fff;
     line-height: 1;
