@@ -2222,81 +2222,16 @@ body.course-page {
    ========================================================================== */
 .home-canvas {
     position: relative;
-    width: 100vw;
-    height: 100vh;
-    background: #d5d6ce;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    background: #ffffff;
     font-family: var(--font);
     -webkit-font-smoothing: antialiased;
     animation: fadeIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Background blobs */
-.home-blobs {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-}
-
-.blob-1 {
-    width: 380px;
-    height: 380px;
-    background: rgba(168, 176, 60, 0.45);
-    top: -100px;
-    right: 6%;
-}
-
-.blob-2 {
-    width: 300px;
-    height: 300px;
-    background: rgba(80, 100, 50, 0.35);
-    bottom: 4%;
-    left: -80px;
-}
-
-.blob-3 {
-    width: 220px;
-    height: 220px;
-    background: rgba(60, 80, 45, 0.3);
-    top: 38%;
-    left: 2%;
-}
-
-.blob-4 {
-    width: 280px;
-    height: 280px;
-    background: rgba(190, 180, 150, 0.35);
-    bottom: -60px;
-    right: -50px;
-}
-
-.blob-5 {
-    width: 200px;
-    height: 200px;
-    background: rgba(140, 145, 80, 0.25);
-    top: 12%;
-    left: 42%;
-}
-
 /* Home page slide container */
 .home-page {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     filter: blur(0);
     transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1),
                 opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
@@ -2308,29 +2243,48 @@ body.course-page {
     transform: translateX(-100%);
     opacity: 0;
     filter: blur(12px);
+    position: fixed;
+    inset: 0;
 }
 
-/* Logo dots */
-.home-logo {
+/* Hero */
+.home-hero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+}
+
+.home-hero-video {
     position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+    inset: 0;
 }
 
-.logo-dots {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    opacity: 0.25;
+.home-hero-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    object-fit: cover;
+    pointer-events: none;
 }
 
-.logo-dots span {
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
-    background: rgba(0, 0, 0, 0.6);
+.home-header {
+    padding: 40px 60px 32px;
+    text-align: center;
+}
+
+.home-logo-text {
+    font-family: var(--font);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Modules section */
+.home-modules {
+    display: flex;
+    justify-content: center;
+    padding: 80px 40px 140px;
 }
 
 /* Tile grid */
@@ -2339,7 +2293,7 @@ body.course-page {
     grid-template-columns: repeat(3, auto);
     gap: 36px 44px;
     z-index: 10;
-    perspective: 1200px;
+    perspective: 1400px;
 }
 
 .tile {
@@ -2352,24 +2306,16 @@ body.course-page {
     transform-style: preserve-3d;
 }
 
-.tile:hover {
-    transform: scale(1.04);
-}
-
-/* Left column — angled inward */
+/* Left column — angled inward from right edge */
 .tile:nth-child(3n+1) {
-    transform: perspective(900px) rotateY(14deg);
-}
-.tile:nth-child(3n+1):hover {
-    transform: perspective(900px) rotateY(14deg) scale(1.04);
+    transform-origin: right center;
+    transform: rotateY(30deg);
 }
 
-/* Right column — angled inward */
+/* Right column — angled inward from left edge */
 .tile:nth-child(3n+3) {
-    transform: perspective(900px) rotateY(-14deg);
-}
-.tile:nth-child(3n+3):hover {
-    transform: perspective(900px) rotateY(-14deg) scale(1.04);
+    transform-origin: left center;
+    transform: rotateY(-30deg);
 }
 
 .tile-image {
@@ -2377,6 +2323,11 @@ body.course-page {
     aspect-ratio: 16 / 9;
     border-radius: 20px;
     overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tile:hover .tile-image {
+    transform: scale(1.04);
 }
 
 .tile-image img {
@@ -2436,10 +2387,102 @@ body.course-page {
 }
 
 /* ==========================================================================
-   21. Module Detail Panel (slide-in)
+   21. Bottom Nav
+   ========================================================================== */
+.bottom-nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.bottom-nav-pill {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+}
+
+.bottom-nav-indicator {
+    position: absolute;
+    top: 6px;
+    left: 0;
+    height: calc(100% - 12px);
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 100px;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform, width;
+}
+
+.bottom-nav-link {
+    position: relative;
+    z-index: 1;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.45);
+    text-decoration: none;
+    border-radius: 100px;
+    transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bottom-nav-link:hover {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.bottom-nav-link.active {
+    color: #fff;
+    font-weight: 600;
+}
+
+.bottom-nav-module {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateX(-8px);
+    transition: max-width 1s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bottom-nav-module.open {
+    max-width: 240px;
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.bottom-nav-module-label {
+    position: relative;
+    z-index: 1;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: 100px;
+    cursor: default;
+    color: #fff;
+}
+
+/* ==========================================================================
+   22. Module Detail Panel (slide-in)
    ========================================================================== */
 .module-detail {
-    position: absolute;
+    position: fixed;
     inset: 0;
     z-index: 20;
     display: flex;
@@ -2447,6 +2490,7 @@ body.course-page {
     align-items: center;
     padding: 40px 60px;
     overflow-y: auto;
+    background: #ffffff;
     transform: translateX(100%);
     opacity: 0;
     filter: blur(12px);
@@ -2547,6 +2591,7 @@ body.course-page {
 .pdf-canvas-wrap {
     position: relative;
     width: 100%;
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
     overflow: hidden;
     opacity: 0;
@@ -2604,9 +2649,17 @@ body.course-page {
     display: flex;
     gap: 8px;
     overflow-x: auto;
-    padding: 4px 0;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    padding: 0;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.pdf-thumb-strip.visible {
+    opacity: 1;
 }
 
 .pdf-thumb-strip::-webkit-scrollbar {
@@ -2616,7 +2669,7 @@ body.course-page {
 .pdf-thumb {
     flex-shrink: 0;
     padding: 0;
-    border: 2px solid transparent;
+    border: none;
     border-radius: 8px;
     background: none;
     cursor: pointer;
@@ -2637,7 +2690,6 @@ body.course-page {
 
 .pdf-thumb.rendered.active {
     opacity: 1;
-    border-color: rgba(0, 0, 0, 0.3);
 }
 
 .pdf-thumb canvas {

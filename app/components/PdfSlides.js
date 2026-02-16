@@ -64,9 +64,11 @@ export default function PdfSlides({ src }) {
   }, [renderPage]);
 
   useEffect(() => {
-    const onResize = () => renderPage();
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+    const wrap = canvasRef.current?.parentElement;
+    if (!wrap) return;
+    const ro = new ResizeObserver(() => renderPage());
+    ro.observe(wrap);
+    return () => ro.disconnect();
   }, [renderPage]);
 
   // Render thumbnails once PDF loads
@@ -133,7 +135,7 @@ export default function PdfSlides({ src }) {
         )}
       </div>
       {numPages > 1 && (
-        <div className="pdf-thumb-strip" ref={thumbStripRef}>
+        <div className={`pdf-thumb-strip ${renderedThumbs.size > 0 ? 'visible' : ''}`} ref={thumbStripRef}>
           {Array.from({ length: numPages }, (_, i) => (
             <button
               key={i}

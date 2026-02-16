@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PdfSlides from './components/PdfSlides';
+import { useModule } from './components/ModuleContext';
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
+  const { setActiveModuleTitle } = useModule();
 
   const tiles = [
     {
@@ -53,46 +55,35 @@ export default function HomePage() {
 
   const active = activeModule !== null ? tiles[activeModule] : null;
 
+  useEffect(() => {
+    setActiveModuleTitle(active ? active.title : null);
+  }, [active, setActiveModuleTitle]);
+
   return (
     <div className="home-canvas">
-      <div className="home-blobs">
-        <div className="blob blob-1" />
-        <div className="blob blob-2" />
-        <div className="blob blob-3" />
-        <div className="blob blob-4" />
-        <div className="blob blob-5" />
-      </div>
-
-      {/* Home page (tiles) */}
+      {/* Scrollable home content */}
       <div className={`home-page ${activeModule !== null ? 'out' : ''}`}>
-        <div className="home-logo">
-          <div className="logo-dots">
-            <span /><span /><span /><span />
-          </div>
-        </div>
+        <header className="home-header">
+          <span className="home-logo-text">Post Training</span>
+        </header>
 
-        <div className="tile-grid">
-          {tiles.map((tile, i) => (
-            <a
-              key={i}
-              href={tile.href || '#'}
-              className="tile"
-              onClick={(e) => handleTileClick(e, tile, i)}
-            >
-              <div className="tile-image">
-                <img src={tile.image} alt={tile.title} />
-              </div>
-              <span className="tile-label">{tile.title}</span>
-            </a>
-          ))}
-        </div>
-
-        <div className="home-footer">
-          <div className="footer-pill">
-            <span className="footer-text">Building Thoughtful AI Systems</span>
-            <a href="/syllabus" className="footer-cta">Syllabus</a>
+<section className="home-modules">
+          <div className="tile-grid">
+            {tiles.map((tile, i) => (
+              <a
+                key={i}
+                href={tile.href || '#'}
+                className="tile"
+                onClick={(e) => handleTileClick(e, tile, i)}
+              >
+                <div className="tile-image">
+                  <img src={tile.image} alt={tile.title} />
+                </div>
+                <span className="tile-label">{tile.title}</span>
+              </a>
+            ))}
           </div>
-        </div>
+        </section>
       </div>
 
       {/* Module detail card */}
@@ -108,14 +99,12 @@ export default function HomePage() {
 
             {active.slides && (
               <div className="detail-glass">
-                <span className="detail-section-label">Slides</span>
                 <PdfSlides src={active.slides} />
               </div>
             )}
 
             {active.recording && (
               <div className="detail-glass">
-                <span className="detail-section-label">Recording</span>
                 <div className="detail-embed">
                   <iframe
                     src={active.recording}
