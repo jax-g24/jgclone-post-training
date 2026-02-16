@@ -92,11 +92,27 @@ export default function HomePage() {
 
   const isOverlayOpen = !!activeOverlay;
   const OverlayComponent = activeOverlay ? overlayComponents[activeOverlay] : null;
+  const contentRef = useRef(null);
+
+  // Forward wheel events from anywhere on the overlay to the content column
+  useEffect(() => {
+    if (!isOverlayOpen) return;
+    const handleWheel = (e) => {
+      const content = contentRef.current;
+      if (!content) return;
+      if (!content.contains(e.target)) {
+        content.scrollTop += e.deltaY;
+        e.preventDefault();
+      }
+    };
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [isOverlayOpen]);
 
   return (
     <div className="home-canvas">
       {/* Scrollable home content */}
-      <div className={`home-page ${activeModule !== null || isOverlayOpen ? 'out' : ''}`}>
+      <div className={`home-page ${activeModule !== null ? 'out' : ''} ${isOverlayOpen ? 'dimmed' : ''}`}>
         <header className="home-header">
           <span className="home-logo-text">Post Training</span>
         </header>
@@ -153,16 +169,39 @@ export default function HomePage() {
         )}
       </div>
 
-      {/* Page overlay */}
+      {/* Page overlay popup */}
       <div className={`page-overlay ${isOverlayOpen ? 'open' : ''}`}>
-        <button className="detail-back" onClick={() => setActiveOverlay(null)}>
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          {activeOverlay ? overlayLabels[activeOverlay] : ''}
-        </button>
-        <div className="detail-glass overlay-content-glass">
-          {OverlayComponent && <OverlayComponent />}
+        <div className="page-overlay-backdrop" onClick={() => setActiveOverlay(null)} />
+        <div className="page-overlay-inner">
+          <button className="overlay-close" onClick={() => setActiveOverlay(null)}>
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+              <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <div className="page-overlay-sidebar">
+            <div className="page-overlay-sidebar-inner">
+              <h1 className="page-overlay-branding">Building Thoughtful AI Systems</h1>
+              <p className="page-overlay-meta">CDSS 94 · Spring 2026 · Mondays, 5–7:30 PM</p>
+              <p className="page-overlay-desc">
+                A rigorous, hands-on exploration of post-training — how we shape model behavior
+                through reinforcement learning, align objectives, design reward functions, build
+                evaluations, and turn foundation models into reliable, useful AI systems.
+              </p>
+              <div className="page-overlay-staff">
+                <a href="https://x.com/karinanguyen_" target="_blank" rel="noopener noreferrer" className="page-overlay-staff-member">
+                  <img src="/assets/images/karina.jpeg" alt="Karina Nguyen" />
+                  <span>Karina Nguyen</span>
+                </a>
+                <a href="https://x.com/KJHMiao" target="_blank" rel="noopener noreferrer" className="page-overlay-staff-member">
+                  <img src="/assets/images/kevin.png" alt="Kevin Miao" />
+                  <span>Kevin Miao</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="page-overlay-content" ref={contentRef}>
+            {OverlayComponent && <OverlayComponent />}
+          </div>
         </div>
       </div>
     </div>

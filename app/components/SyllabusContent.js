@@ -1,26 +1,6 @@
 export default function SyllabusContent() {
   return (
     <>
-      <header className="course-header">
-        <h1 className="course-title">Building Thoughtful AI Systems</h1>
-        <p className="course-meta">CDSS 94 · Spring 2026 · Mondays, 5–7:30 PM</p>
-        <p className="course-description">
-          A rigorous, hands-on exploration of post-training — how we shape model behavior
-          through reinforcement learning, align objectives, design reward functions, build
-          evaluations, and turn foundation models into reliable, useful AI systems.
-        </p>
-        <div className="teaching-staff-inline">
-          <a href="https://x.com/karinanguyen_" target="_blank" rel="noopener noreferrer" className="staff-member-inline">
-            <img src="/assets/images/karina.jpeg" alt="Karina Nguyen" />
-            <span>Karina Nguyen</span>
-          </a>
-          <a href="https://x.com/KJHMiao" target="_blank" rel="noopener noreferrer" className="staff-member-inline">
-            <img src="/assets/images/kevin.png" alt="Kevin Miao" />
-            <span>Kevin Miao</span>
-          </a>
-        </div>
-      </header>
-
       <main className="course-content">
         <div id="syllabus" className="schedule-section">
           <div className="modules-grid">

@@ -1,11 +1,6 @@
 export default function AboutContent() {
   return (
     <>
-      <header className="page-header">
-        <h1 className="page-title">About</h1>
-        <p className="page-subtitle">Course policies, structure, and information</p>
-      </header>
-
       <main className="course-content">
         <div className="policies-section active">
           <div className="policy-card">

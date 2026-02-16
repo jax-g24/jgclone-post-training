@@ -1,11 +1,6 @@
 export default function CalendarContent() {
   return (
     <>
-      <header className="page-header">
-        <h1 className="page-title">Calendar</h1>
-        <p className="page-subtitle">Weekly schedule of lectures, labs, and assignments</p>
-      </header>
-
       <main className="course-content">
         <div className="calendar-section active">
           <div className="calendar-grid">

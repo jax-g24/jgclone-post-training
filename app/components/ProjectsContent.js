@@ -1,11 +1,6 @@
 export default function ProjectsContent() {
   return (
     <>
-      <header className="page-header">
-        <h1 className="page-title">Projects</h1>
-        <p className="page-subtitle">Hands-on projects to build your post-training skills</p>
-      </header>
-
       <main className="course-content">
         <div className="projects-section active">
           <div className="project-card">
