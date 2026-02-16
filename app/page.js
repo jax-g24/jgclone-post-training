@@ -170,40 +170,42 @@ export default function HomePage() {
       </div>
 
       {/* Page overlay popup */}
-      <div className={`page-overlay ${isOverlayOpen ? 'open' : ''}`}>
-        <div className="page-overlay-backdrop" onClick={() => setActiveOverlay(null)} />
-        <div className="page-overlay-inner">
-          <button className="overlay-close" onClick={() => setActiveOverlay(null)}>
-            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-              <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </button>
-          <div className="page-overlay-sidebar">
-            <div className="page-overlay-sidebar-inner">
-              <h1 className="page-overlay-branding">Building Thoughtful AI Systems</h1>
-              <p className="page-overlay-meta">CDSS 94 · Spring 2026 · Mondays, 5–7:30 PM</p>
-              <p className="page-overlay-desc">
-                A rigorous, hands-on exploration of post-training — how we shape model behavior
-                through reinforcement learning, align objectives, design reward functions, build
-                evaluations, and turn foundation models into reliable, useful AI systems.
-              </p>
-              <div className="page-overlay-staff">
-                <a href="https://x.com/karinanguyen_" target="_blank" rel="noopener noreferrer" className="page-overlay-staff-member">
-                  <img src="/assets/images/karina.jpeg" alt="Karina Nguyen" />
-                  <span>Karina Nguyen</span>
-                </a>
-                <a href="https://x.com/KJHMiao" target="_blank" rel="noopener noreferrer" className="page-overlay-staff-member">
-                  <img src="/assets/images/kevin.png" alt="Kevin Miao" />
-                  <span>Kevin Miao</span>
-                </a>
+      {isOverlayOpen && (
+        <div className="page-overlay open">
+          <div className="page-overlay-backdrop" onClick={() => setActiveOverlay(null)} />
+          <div className="page-overlay-inner">
+            <button className="overlay-close" onClick={() => setActiveOverlay(null)}>
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            <div className="page-overlay-sidebar">
+              <div className="page-overlay-sidebar-inner">
+                <h1 className="page-overlay-branding">Building Thoughtful AI Systems</h1>
+                <p className="page-overlay-meta">CDSS 94 · Spring 2026 · Mondays, 5–7:30 PM</p>
+                <p className="page-overlay-desc">
+                  A rigorous, hands-on exploration of post-training — how we shape model behavior
+                  through reinforcement learning, align objectives, design reward functions, build
+                  evaluations, and turn foundation models into reliable, useful AI systems.
+                </p>
+                <div className="page-overlay-staff">
+                  <a href="https://x.com/karinanguyen_" target="_blank" rel="noopener noreferrer" className="page-overlay-staff-member">
+                    <img src="/assets/images/karina.jpeg" alt="Karina Nguyen" />
+                    <span>Karina Nguyen</span>
+                  </a>
+                  <a href="https://x.com/KJHMiao" target="_blank" rel="noopener noreferrer" className="page-overlay-staff-member">
+                    <img src="/assets/images/kevin.png" alt="Kevin Miao" />
+                    <span>Kevin Miao</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="page-overlay-content" ref={contentRef}>
-            {OverlayComponent && <OverlayComponent />}
+            <div className="page-overlay-content" ref={contentRef}>
+              {OverlayComponent && <OverlayComponent />}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
