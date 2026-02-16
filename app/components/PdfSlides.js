@@ -10,7 +10,8 @@ export default function PdfSlides({ src }) {
   const [pdfDoc, setPdfDoc] = useState(null);
   const [pageNum, setPageNum] = useState(1);
   const [numPages, setNumPages] = useState(0);
-  const [thumbsReady, setThumbsReady] = useState(false);
+  const [mainReady, setMainReady] = useState(false);
+  const [renderedThumbs, setRenderedThumbs] = useState(new Set());
 
   // Load PDF
   useEffect(() => {
@@ -53,9 +54,10 @@ export default function PdfSlides({ src }) {
       renderTaskRef.current = task;
       task.promise.then(() => {
         renderTaskRef.current = null;
+        if (!mainReady) setMainReady(true);
       }).catch(() => {});
     });
-  }, [pdfDoc, pageNum]);
+  }, [pdfDoc, pageNum, mainReady]);
 
   useEffect(() => {
     renderPage();
@@ -88,8 +90,10 @@ export default function PdfSlides({ src }) {
         canvas.style.width = thumbWidth + 'px';
         canvas.style.height = (thumbWidth * vp.height / vp.width) + 'px';
         await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+        if (!cancelled) {
+          setRenderedThumbs((prev) => new Set(prev).add(i - 1));
+        }
       }
-      if (!cancelled) setThumbsReady(true);
     };
 
     renderThumbs();
@@ -115,10 +119,15 @@ export default function PdfSlides({ src }) {
     return () => window.removeEventListener('keydown', onKey);
   }, [numPages]);
 
+  const goBack = () => setPageNum((p) => Math.max(1, p - 1));
+  const goForward = () => setPageNum((p) => Math.min(numPages, p + 1));
+
   return (
     <div className="pdf-slides">
-      <div className="pdf-canvas-wrap">
+      <div className={`pdf-canvas-wrap ${mainReady ? 'ready' : ''}`}>
         <canvas ref={canvasRef} />
+        <button className="pdf-click-zone pdf-click-left" onClick={goBack} aria-label="Previous slide" />
+        <button className="pdf-click-zone pdf-click-right" onClick={goForward} aria-label="Next slide" />
         {numPages > 0 && (
           <span className="pdf-page-num">{pageNum} / {numPages}</span>
         )}
@@ -128,7 +137,7 @@ export default function PdfSlides({ src }) {
           {Array.from({ length: numPages }, (_, i) => (
             <button
               key={i}
-              className={`pdf-thumb ${pageNum === i + 1 ? 'active' : ''}`}
+              className={`pdf-thumb ${renderedThumbs.has(i) ? 'rendered' : ''} ${pageNum === i + 1 ? 'active' : ''}`}
               onClick={() => setPageNum(i + 1)}
             >
               <canvas ref={(el) => { thumbsRef.current[i] = el; }} />
