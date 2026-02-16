@@ -1,5 +1,11 @@
 'use client';
 
+const monthIndex = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4 };
+
+function getClassDate(c) {
+  return new Date(2026, monthIndex[c.month], c.day);
+}
+
 const classes = [
   { month: 'Jan', day: 26, lecture: 'What We Owe Machines', module: 'Fundamentals', week: 1 },
   { month: 'Feb', day: 2, lecture: 'Lifecycle of a Language Model', module: 'Fundamentals', week: 2 },
@@ -19,17 +25,32 @@ const classes = [
 ];
 
 export default function CalendarContent() {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  // Find the next upcoming class (first class whose date >= today)
+  const nextIndex = classes.findIndex((c) => getClassDate(c) >= now);
+
   return (
     <div className="sq-calendar">
       <div className="sq-grid">
-        {classes.map((c, i) => (
+        {classes.map((c, i) => {
+          const isPast = nextIndex === -1 || i < nextIndex;
+          const isNext = i === nextIndex;
+
+          return (
           <div
             key={i}
-            className={`sq-day${c.isBreak ? ' is-break' : ''}${c.isDemo ? ' is-demo' : ''}`}
+            className={`sq-day${c.isBreak ? ' is-break' : ''}${c.isDemo ? ' is-demo' : ''}${isPast ? ' is-past' : ''}${isNext ? ' is-next' : ''}`}
           >
-            <div className="sq-day-date">
-              <span className="sq-day-month">{c.month}</span>
-              <span className="sq-day-num">{c.day}</span>
+            <div className="sq-day-top">
+              <div className="sq-day-date">
+                <span className="sq-day-month">{c.month}</span>
+                <span className="sq-day-num">{c.day}</span>
+              </div>
+              {c.tag && (
+                <span className={`sq-event-tag ${c.tag.type}`}>{c.tag.label}</span>
+              )}
             </div>
             {c.isBreak ? (
               <span className="sq-event-break">Spring Break</span>
@@ -37,13 +58,11 @@ export default function CalendarContent() {
               <div className="sq-event">
                 <span className="sq-event-module">Week {c.week} · {c.module}</span>
                 <span className="sq-event-lecture">{c.lecture}</span>
-                {c.tag && (
-                  <span className={`sq-event-tag ${c.tag.type}`}>{c.tag.label}</span>
-                )}
               </div>
             )}
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

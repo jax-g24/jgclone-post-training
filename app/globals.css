@@ -2706,11 +2706,12 @@ body.course-page {
 }
 
 .sq-day {
+    position: relative;
     aspect-ratio: 1;
     padding: 14px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -2718,13 +2719,33 @@ body.course-page {
 }
 
 .sq-day.is-break {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.sq-day.is-past {
+    opacity: 0.4;
+}
+
+
+.sq-day.is-next .sq-day-month,
+.sq-day.is-next .sq-day-num {
+    color: rgba(74, 222, 128, 0.9);
+}
+
+.sq-day-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.sq-day-top .sq-event-tag {
+    margin-top: 2px;
 }
 
 .sq-day.is-demo {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.35);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .sq-day-date {
@@ -3000,7 +3021,7 @@ body.course-page {
 .page-overlay-content .milestone-text,
 .page-overlay-content .grade-detail,
 .page-overlay-content .module-number {
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .page-overlay-content .date-day,
@@ -3011,11 +3032,11 @@ body.course-page {
 .page-overlay-content .policies-content a,
 .page-overlay-content .calendar-material-link,
 .page-overlay-content .lecture-link {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.95);
 }
 
 .page-overlay-content .lecture-link.disabled {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .page-overlay-content .section-header {
@@ -3031,7 +3052,7 @@ body.course-page {
 }
 
 .page-overlay-content .lecture-link {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.25);
 }
 
 .page-overlay-content .lecture-link:hover {
@@ -3043,7 +3064,7 @@ body.course-page {
 }
 
 .page-overlay-content .milestones {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .page-overlay-content .project-timeline {
@@ -3055,11 +3076,11 @@ body.course-page {
 .page-overlay-content .policy-card,
 .page-overlay-content .project-card,
 .page-overlay-content .calendar-row {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .page-overlay-content .calendar-grid,
@@ -3070,7 +3091,7 @@ body.course-page {
 }
 
 .page-overlay-content .calendar-header {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
 }
