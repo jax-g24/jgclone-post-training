@@ -171,7 +171,7 @@ export default function HomePage() {
 
       {/* Page overlay popup */}
       {isOverlayOpen && (
-        <div className="page-overlay open">
+        <div className="page-overlay open" data-overlay={activeOverlay}>
           <div className="page-overlay-backdrop" onClick={() => setActiveOverlay(null)} />
           <div className="page-overlay-inner">
             <button className="overlay-close" onClick={() => setActiveOverlay(null)}>
