@@ -1,96 +1,68 @@
-// Mobile Menu
+// Hero Video Autoplay
 (function() {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (!navToggle || !navLinks) return;
-
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
-    });
-
-    navLinks.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
+    const v = document.getElementById('heroVideo');
+    if (!v) return;
+    v.muted = true;
+    v.play().catch(() => {});
+    v.addEventListener('canplay', () => v.play().catch(() => {}), { once: true });
+    document.addEventListener('click', () => { if (v.paused) v.play(); }, { once: true });
+    document.addEventListener('touchstart', () => { if (v.paused) v.play(); }, { once: true });
 })();
 
-// Homepage Video Modal Functionality
+// Email Signup → Supabase
 (function() {
-    const modal = document.getElementById('videoModal');
-    const modalVideo = document.getElementById('modalVideo');
-    const modalLinks = document.getElementById('modalLinks');
-    const modalBackdrop = modal.querySelector('.modal-backdrop');
-    const modalClose = modal.querySelector('.modal-close');
-    const videoCards = document.querySelectorAll('.video-card:not(.upcoming)');
+    const SUPABASE_URL = 'https://bssehxpgeazjjuvkoyef.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzc2VoeHBnZWF6amp1dmtveWVmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0ODU3NDAsImV4cCI6MjA4NTA2MTc0MH0.G3GEIG6AU8G0h4KWAkvLCwMSO2-rgFIp4TJvXPDxNKQ';
 
-    // Open modal when clicking a video card
-    videoCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const videoId = card.dataset.videoId;
-            const slides = card.dataset.slides;
-            const notes = card.dataset.notes;
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // Build links
-            let linksHtml = '';
-            if (slides) {
-                linksHtml += `<a href="${slides}" target="_blank" class="modal-link">Slides</a>`;
-            }
-            if (notes) {
-                linksHtml += `<a href="${notes}" target="_blank" class="modal-link">Notes</a>`;
-            }
-            modalLinks.innerHTML = linksHtml;
+    const form = document.getElementById('signupForm');
+    const emailInput = document.getElementById('emailInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const message = document.getElementById('formMessage');
 
-            // Open modal
-            if (videoId && !videoId.startsWith('VIDEO_ID')) {
-                // Check if it's a full URL (Bunny) or YouTube ID
-                if (videoId.startsWith('http')) {
-                    modalVideo.src = videoId;
-                } else {
-                    modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-                }
-            }
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    });
+    if (!form) return;
 
-    // Close modal functions
-    function closeModal() {
-        modal.classList.remove('active');
-        modalVideo.src = '';
-        document.body.style.overflow = '';
-    }
-
-    modalBackdrop.addEventListener('click', closeModal);
-    modalClose.addEventListener('click', closeModal);
-
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
+    // Show button once an @ is entered
+    emailInput.addEventListener('input', () => {
+        if (emailInput.value.includes('@')) {
+            submitBtn.classList.add('visible');
+        } else {
+            submitBtn.classList.remove('visible');
         }
     });
 
-    // Handle placeholder thumbnails gracefully
-    document.querySelectorAll('.video-thumbnail img').forEach(img => {
-        img.addEventListener('error', function() {
-            // Replace with a placeholder if thumbnail fails to load
-            this.style.display = 'none';
-            this.parentElement.style.background = 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)';
-        });
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        if (!email) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+        message.textContent = '';
+        message.className = 'form-message';
+
+        const { error } = await supabase
+            .from('subscribers')
+            .insert({ email });
+
+        if (error) {
+            if (error.code === '23505') {
+                message.textContent = 'You\'re already on the list!';
+                message.classList.add('success');
+            } else {
+                message.textContent = 'Something went wrong. Please try again.';
+                message.classList.add('error');
+            }
+        } else {
+            form.style.display = 'none';
+            message.textContent = '02.16.26';
+            message.classList.add('success');
+            return;
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enter';
     });
 })();

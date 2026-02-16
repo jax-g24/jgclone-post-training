@@ -3,144 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building Thoughtful AI Systems</title>
-
+    <title>Post Training</title>
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="homepage">
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <a href="index.html" class="nav-logo">Post Training</a>
-        <button class="nav-toggle" aria-label="Toggle menu">
-            <span class="hamburger"></span>
-        </button>
-        <div class="nav-links">
-            <a href="course.html" class="nav-link">Syllabus</a>
-            <a href="calendar.html" class="nav-link">Calendar</a>
-            <a href="projects.html" class="nav-link">Projects</a>
-            <a href="about.html" class="nav-link">About</a>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-video">
-            <div class="video-wrapper">
-                <iframe
-                    src="https://iframe.mediadelivery.net/embed/591262/62552df7-25cc-46fa-990d-a1604c7b5c1b?autoplay=true&loop=true&muted=true&preload=true&quality=1080&showControls=false"
-                    title="Course Introduction"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-    </section>
+    <!-- Full-screen Hero Video -->
+    <section class="hero-fullscreen">
+        <video
+            id="heroVideo"
+            autoplay
+            muted
+            loop
+            playsinline
+            webkit-playsinline
+            preload="auto"
+            disablepictureinpicture
+            x-webkit-airplay="deny"
+            poster="assets/images/hero-still.jpg"
+        >
+            <source src="https://vz-3f73a609-be6.b-cdn.net/62552df7-25cc-46fa-990d-a1604c7b5c1b/play_1080p.mp4" type="video/mp4">
+        </video>
 
-    <!-- Video Grid Section -->
-    <section class="video-grid-section">
-        <h2 class="grid-title">Building Thoughtful AI Systems</h2>
-        <div class="video-grid">
-            <!-- Video Card Template - Duplicate and modify for each video -->
-            <article class="video-card" data-video-id="https://iframe.mediadelivery.net/embed/593384/9d2a9eb8-f376-448f-b346-1047f83c2252?autoplay=true" data-slides="assets/slides/WhatWeOweMachines.pdf" data-notes="https://drive.google.com/file/d/10AQCsEnCpEPpblU4TgUNZJzCu-JtUoes/view?usp=share_link">
-                <div class="video-thumbnail">
-                    <img src="assets/images/What we owe machines.jpeg" alt="Lecture 1 thumbnail">
-                </div>
-                <div class="video-info">
-                    <div class="video-title-row">
-                        <h3 class="video-title">What We Owe Machines</h3>
-                        <span class="video-date">Jan 26</span>
-                    </div>
-                    <span class="video-module">Module 1 · Fundamentals</span>
-                </div>
-            </article>
-
-            <article class="video-card upcoming" data-video-id="F539mrLBUaE">
-                <div class="video-thumbnail">
-                    <img src="assets/images/The Lifecycle of a Language Model.jpg" alt="Lecture 2 thumbnail">
-                </div>
-                <div class="video-info">
-                    <div class="video-title-row">
-                        <h3 class="video-title">The Lifecycle of a Language Model</h3>
-                        <span class="video-date">Feb 2</span>
-                    </div>
-                    <span class="video-module">Module 1 · Fundamentals</span>
-                </div>
-            </article>
-
-            <article class="video-card upcoming" data-video-id="rKu0FKKNP4M">
-                <div class="video-thumbnail">
-                    <img src="assets/images/posttraining-foundations.jpg" alt="Lecture 3 thumbnail">
-                </div>
-                <div class="video-info">
-                    <div class="video-title-row">
-                        <h3 class="video-title">Post-Training Foundations</h3>
-                        <span class="video-date">Feb 9</span>
-                    </div>
-                    <span class="video-module">Module 2 · Post-Training</span>
-                </div>
-            </article>
-
-            <article class="video-card upcoming" data-video-id="IPukuYb9xWw">
-                <div class="video-thumbnail">
-                    <img src="assets/images/RLHF and Reward Learning.jpg" alt="Lecture 4 thumbnail">
-                </div>
-                <div class="video-info">
-                    <div class="video-title-row">
-                        <h3 class="video-title">RLHF and Reward Learning</h3>
-                        <span class="video-date">Feb 16</span>
-                    </div>
-                    <span class="video-module">Module 2 · Post-Training</span>
-                </div>
-            </article>
-
-            <article class="video-card upcoming" data-video-id="ydYDqZQpim8">
-                <div class="video-thumbnail">
-                    <img src="assets/images/Alignment Methods & Model Behavior.jpg" alt="Lecture 5 thumbnail">
-                </div>
-                <div class="video-info">
-                    <div class="video-title-row">
-                        <h3 class="video-title">Alignment Methods & Model Behavior</h3>
-                        <span class="video-date">Feb 23</span>
-                    </div>
-                    <span class="video-module">Module 2 · Post-Training</span>
-                </div>
-            </article>
-
-            <article class="video-card upcoming" data-video-id="7ynL4U2v2Sw">
-                <div class="video-thumbnail">
-                    <img src="assets/images/Evals as Research.jpg" alt="Lecture 6 thumbnail">
-                </div>
-                <div class="video-info">
-                    <div class="video-title-row">
-                        <h3 class="video-title">Evals as Research</h3>
-                        <span class="video-date">Mar 2</span>
-                    </div>
-                    <span class="video-module">Module 2 · Post-Training</span>
-                </div>
-            </article>
+        <!-- Centered Overlay -->
+        <div class="signup-overlay">
+            <form id="signupForm" class="signup-form">
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="Enter your email"
+                    required
+                    autocomplete="email"
+                >
+                <button type="submit" id="submitBtn">Enter</button>
+            </form>
+            <p id="formMessage" class="form-message"></p>
         </div>
     </section>
-
-    <!-- Video Modal -->
-    <div class="video-modal" id="videoModal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-content">
-            <div class="modal-video-wrapper">
-                <iframe id="modalVideo" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="modal-controls">
-                <div class="modal-links" id="modalLinks"></div>
-                <button class="modal-close" aria-label="Close video">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 6L6 18M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
 
     <script src="js/homepage.js"></script>
 </body>
