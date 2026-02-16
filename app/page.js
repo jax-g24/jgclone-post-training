@@ -11,8 +11,8 @@ export default function HomePage() {
   const tiles = [
     {
       title: 'Fundamentals',
-      image: '/assets/images/What we owe machines.jpeg',
-      slides: '/assets/slides/WhatWeOweMachines.pdf',
+      image: '/assets/images/What we owe machines-lecture.png',
+      slides: '/assets/slides/Lecture1-BuildingThoughtfulAISystems.pdf',
       recording: 'https://player.mediadelivery.net/embed/593384/9d2a9eb8-f376-448f-b346-1047f83c2252',
     },
     {
