@@ -2377,9 +2377,6 @@ body.course-page {
     aspect-ratio: 16 / 9;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow:
-        0 16px 48px rgba(0, 0, 0, 0.12),
-        0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .tile-image img {
