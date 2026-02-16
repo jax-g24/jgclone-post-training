@@ -3,10 +3,28 @@
 import { useState, useEffect, useRef } from 'react';
 import PdfSlides from './components/PdfSlides';
 import { useModule } from './components/ModuleContext';
+import SyllabusContent from './components/SyllabusContent';
+import CalendarContent from './components/CalendarContent';
+import ProjectsContent from './components/ProjectsContent';
+import AboutContent from './components/AboutContent';
+
+const overlayLabels = {
+  syllabus: 'Syllabus',
+  calendar: 'Calendar',
+  projects: 'Projects',
+  about: 'About',
+};
+
+const overlayComponents = {
+  syllabus: SyllabusContent,
+  calendar: CalendarContent,
+  projects: ProjectsContent,
+  about: AboutContent,
+};
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
-  const { activeModuleTitle, setActiveModuleTitle } = useModule();
+  const { activeModuleTitle, setActiveModuleTitle, activeOverlay, setActiveOverlay } = useModule();
 
   const tiles = [
     {
@@ -36,18 +54,21 @@ export default function HomePage() {
     {
       title: 'Calendar',
       image: '/assets/images/The Lifecycle of a Language Model.jpg',
-      href: '/calendar',
+      overlay: 'calendar',
     },
     {
       title: 'About',
       image: '/assets/images/RLHF and Reward Learning.jpg',
-      href: '/about',
+      overlay: 'about',
     },
   ];
 
   const handleTileClick = (e, tile, index) => {
-    if (tile.href) return;
     e.preventDefault();
+    if (tile.overlay) {
+      setActiveOverlay(tile.overlay);
+      return;
+    }
     if (tile.slides || tile.recording) {
       setActiveModule(index);
     }
@@ -69,10 +90,13 @@ export default function HomePage() {
     prevModuleTitle.current = activeModuleTitle;
   }, [activeModuleTitle, activeModule]);
 
+  const isOverlayOpen = !!activeOverlay;
+  const OverlayComponent = activeOverlay ? overlayComponents[activeOverlay] : null;
+
   return (
     <div className="home-canvas">
       {/* Scrollable home content */}
-      <div className={`home-page ${activeModule !== null ? 'out' : ''}`}>
+      <div className={`home-page ${activeModule !== null || isOverlayOpen ? 'out' : ''}`}>
         <header className="home-header">
           <span className="home-logo-text">Post Training</span>
         </header>
@@ -82,7 +106,7 @@ export default function HomePage() {
             {tiles.map((tile, i) => (
               <a
                 key={i}
-                href={tile.href || '#'}
+                href="#"
                 className="tile"
                 onClick={(e) => handleTileClick(e, tile, i)}
               >
@@ -127,6 +151,19 @@ export default function HomePage() {
             )}
           </>
         )}
+      </div>
+
+      {/* Page overlay */}
+      <div className={`page-overlay ${isOverlayOpen ? 'open' : ''}`}>
+        <button className="detail-back" onClick={() => setActiveOverlay(null)}>
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          {activeOverlay ? overlayLabels[activeOverlay] : ''}
+        </button>
+        <div className="detail-glass overlay-content-glass">
+          {OverlayComponent && <OverlayComponent />}
+        </div>
       </div>
     </div>
   );

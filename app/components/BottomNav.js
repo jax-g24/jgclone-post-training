@@ -1,21 +1,18 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
 import { useRef, useEffect, useState, useCallback } from 'react';
-import Link from 'next/link';
 import { useModule } from './ModuleContext';
 
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/syllabus', label: 'Syllabus' },
-  { href: '/calendar', label: 'Calendar' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/about', label: 'About' },
+  { key: 'home', label: 'Home' },
+  { key: 'syllabus', label: 'Syllabus' },
+  { key: 'calendar', label: 'Calendar' },
+  { key: 'projects', label: 'Projects' },
+  { key: 'about', label: 'About' },
 ];
 
 export default function BottomNav() {
-  const pathname = usePathname();
-  const { activeModuleTitle, setActiveModuleTitle } = useModule();
+  const { activeModuleTitle, setActiveModuleTitle, activeOverlay, setActiveOverlay } = useModule();
   const pillRef = useRef(null);
   const linkRefs = useRef({});
   const moduleRef = useRef(null);
@@ -24,7 +21,7 @@ export default function BottomNav() {
   const [transitioning, setTransitioning] = useState(false);
 
   const isModuleActive = !!activeModuleTitle;
-  const activeHref = links.find((l) => l.href === pathname)?.href || null;
+  const activeKey = activeOverlay || (isModuleActive ? null : 'home');
 
   const measure = useCallback(() => {
     if (!pillRef.current) return;
@@ -33,8 +30,8 @@ export default function BottomNav() {
     let target = null;
     if (isModuleActive && moduleRef.current) {
       target = moduleRef.current;
-    } else if (activeHref && linkRefs.current[activeHref]) {
-      target = linkRefs.current[activeHref];
+    } else if (activeKey && linkRefs.current[activeKey]) {
+      target = linkRefs.current[activeKey];
     }
 
     if (target) {
@@ -47,7 +44,7 @@ export default function BottomNav() {
     } else {
       setIndicator((prev) => ({ ...prev, opacity: 0 }));
     }
-  }, [isModuleActive, activeHref]);
+  }, [isModuleActive, activeKey]);
 
   // Continuously measure during module open/close animation
   useEffect(() => {
@@ -72,7 +69,7 @@ export default function BottomNav() {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       clearTimeout(timer);
     };
-  }, [isModuleActive, activeHref, measure]);
+  }, [isModuleActive, activeKey, measure]);
 
   // Also measure on resize
   useEffect(() => {
@@ -81,9 +78,13 @@ export default function BottomNav() {
     return () => ro.disconnect();
   }, [measure]);
 
-  const handleLinkClick = () => {
-    if (isModuleActive) {
+  const handleLinkClick = (key) => {
+    if (key === 'home') {
       setActiveModuleTitle(null);
+      setActiveOverlay(null);
+    } else {
+      setActiveModuleTitle(null);
+      setActiveOverlay(key);
     }
   };
 
@@ -101,16 +102,15 @@ export default function BottomNav() {
         <div className={`bottom-nav-module ${isModuleActive ? 'open' : ''}`}>
           <span className="bottom-nav-module-label" ref={moduleRef}>{activeModuleTitle}</span>
         </div>
-        {links.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            ref={(el) => { linkRefs.current[href] = el; }}
-            className={`bottom-nav-link ${pathname === href && !isModuleActive ? 'active' : ''}`}
-            onClick={handleLinkClick}
+        {links.map(({ key, label }) => (
+          <button
+            key={key}
+            ref={(el) => { linkRefs.current[key] = el; }}
+            className={`bottom-nav-link ${key === activeKey && !isModuleActive ? 'active' : ''}`}
+            onClick={() => handleLinkClick(key)}
           >
             {label}
-          </Link>
+          </button>
         ))}
       </div>
     </nav>

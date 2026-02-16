@@ -2692,6 +2692,48 @@ body.course-page {
     border-radius: 6px;
 }
 
+/* ==========================================================================
+   23. Page Overlay (frosted glass, mirrors module-detail)
+   ========================================================================== */
+.page-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 60px;
+    overflow-y: auto;
+    background: #eeeeee;
+    transform: translateX(100%);
+    opacity: 0;
+    filter: blur(12px);
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity, filter;
+    pointer-events: none;
+}
+
+.page-overlay.open {
+    transform: translateX(0);
+    opacity: 1;
+    filter: blur(0);
+    pointer-events: auto;
+}
+
+.overlay-content-glass {
+    padding: 40px;
+}
+
+/* BottomNav button reset (links are now <button>) */
+button.bottom-nav-link {
+    background: none;
+    border: none;
+    font-family: var(--font);
+    cursor: pointer;
+}
+
 /* Homepage responsive */
 @media (max-width: 960px) {
     .tile-grid {
@@ -2720,13 +2762,18 @@ body.course-page {
         font-size: 13px;
     }
 
-    .module-detail {
+    .module-detail,
+    .page-overlay {
         padding: 32px;
     }
 
     .detail-glass {
         padding: 16px 18px 18px;
         border-radius: 20px;
+    }
+
+    .overlay-content-glass {
+        padding: 24px;
     }
 }
 
@@ -2766,13 +2813,18 @@ body.course-page {
         display: none;
     }
 
-    .module-detail {
+    .module-detail,
+    .page-overlay {
         padding: 20px 16px;
     }
 
     .detail-glass {
         padding: 14px;
         border-radius: 18px;
+    }
+
+    .overlay-content-glass {
+        padding: 16px;
     }
 
     .detail-title {
