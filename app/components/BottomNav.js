@@ -6,7 +6,7 @@ import { useModule } from './ModuleContext';
 const links = [
   { key: 'home', label: 'Home' },
   { key: 'syllabus', label: 'Syllabus' },
-  { key: 'calendar', label: 'Calendar', courseSub: true },
+  { key: 'calendar', label: 'Calendar', courseSub: true, courseSubFirst: true },
   { key: 'projects', label: 'Projects', courseSub: true },
   { key: 'about', label: 'About', courseSub: true },
 ];
@@ -102,11 +102,11 @@ export default function BottomNav() {
         <div className={`bottom-nav-module ${isModuleActive ? 'open' : ''}`}>
           <span className="bottom-nav-module-label" ref={moduleRef}>{activeModuleTitle}</span>
         </div>
-        {links.map(({ key, label, courseSub }) => (
+        {links.map(({ key, label, courseSub, courseSubFirst }) => (
           <button
             key={key}
             ref={(el) => { linkRefs.current[key] = el; }}
-            className={`bottom-nav-link ${key === activeKey && !isModuleActive ? 'active' : ''} ${courseSub ? 'course-sub' : ''}`}
+            className={`bottom-nav-link ${key === activeKey && !isModuleActive ? 'active' : ''} ${courseSub ? 'course-sub' : ''} ${courseSubFirst ? 'course-sub-first' : ''}`}
             onClick={() => handleLinkClick(key)}
           >
             {label}

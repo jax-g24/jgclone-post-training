@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import PdfSlides from './components/PdfSlides';
 import { useModule } from './components/ModuleContext';
 import SyllabusContent from './components/SyllabusContent';
@@ -21,6 +21,41 @@ const overlayComponents = {
   projects: ProjectsContent,
   about: AboutContent,
 };
+
+const resources = [
+  {
+    category: 'Videos',
+    items: [
+      { type: 'video', title: 'Deep Dive into LLMs like ChatGPT', author: 'Andrej Karpathy', year: '2025', url: 'https://www.youtube.com/watch?v=7xTGNNLPyMI', thumb: 'https://img.youtube.com/vi/7xTGNNLPyMI/maxresdefault.jpg' },
+      { type: 'video', title: 'How I Use LLMs', author: 'Andrej Karpathy', year: '2025', url: 'https://www.youtube.com/watch?v=EWvNQjAaOHw', thumb: 'https://img.youtube.com/vi/EWvNQjAaOHw/maxresdefault.jpg' },
+      { type: 'video', title: 'Intro to Large Language Models', author: 'Andrej Karpathy', year: '2023', url: 'https://www.youtube.com/watch?v=zjkBMFhNj_g', thumb: 'https://img.youtube.com/vi/zjkBMFhNj_g/maxresdefault.jpg' },
+      { type: 'video', title: 'Let\'s reproduce GPT-2 (124M)', author: 'Andrej Karpathy', year: '2024', url: 'https://www.youtube.com/watch?v=l8pRSuU81PU', thumb: 'https://img.youtube.com/vi/l8pRSuU81PU/maxresdefault.jpg' },
+      { type: 'video', title: 'Let\'s build GPT: from scratch, in code', author: 'Andrej Karpathy', year: '2023', url: 'https://www.youtube.com/watch?v=kCc8FmEb1nY', thumb: 'https://img.youtube.com/vi/kCc8FmEb1nY/maxresdefault.jpg' },
+    ],
+  },
+  {
+    category: 'Papers',
+    items: [
+      { type: 'paper', title: 'InstructGPT', author: 'Ouyang et al.', year: '2022', url: 'https://arxiv.org/abs/2203.02155' },
+      { type: 'paper', title: 'Direct Preference Optimization (DPO)', author: 'Rafailov et al.', year: '2023', url: 'https://arxiv.org/abs/2305.18290' },
+      { type: 'paper', title: 'DeepSeek R1', author: 'DeepSeek-AI', year: '2025', url: 'https://arxiv.org/abs/2501.12948' },
+      { type: 'paper', title: 'Reinforcement Learning from Human Feedback', author: 'Nathan Lambert', year: '2025', url: 'https://rlhfbook.com/book.pdf' },
+      { type: 'paper', title: 'Open Problems and Fundamental Limitations of RLHF', author: 'Casper et al.', year: '2023', url: 'https://arxiv.org/abs/2307.15217' },
+    ],
+  },
+  {
+    category: 'Articles',
+    items: [
+      { type: 'article', title: 'RLHF Learning Resources', author: 'Nathan Lambert', source: 'Interconnects', url: 'https://www.interconnects.ai/p/rlhf-resources' },
+      { type: 'article', title: '2025 Open Models Year in Review', author: 'Nathan Lambert', source: 'Interconnects', url: 'https://www.interconnects.ai/p/2025-open-models-year-in-review' },
+      { type: 'article', title: 'The State of LLMs 2025', author: 'Sebastian Raschka', source: 'Magazine', url: 'https://magazine.sebastianraschka.com/p/state-of-llms-2025' },
+      { type: 'article', title: '2025 LLM Year in Review', author: 'Andrej Karpathy', source: 'Blog', url: 'https://karpathy.bearblog.dev/year-in-review-2025/' },
+      { type: 'article', title: 'Illustrating RLHF', author: 'Hugging Face', source: 'Blog', url: 'https://huggingface.co/blog/rlhf' },
+      { type: 'article', title: 'RLHF 101: A Technical Tutorial', author: 'CMU ML Blog', source: 'Blog', url: 'https://blog.ml.cmu.edu/2025/06/01/rlhf-101-a-technical-tutorial-on-reinforcement-learning-from-human-feedback/' },
+      { type: 'article', title: 'LLM Course (DPO/GRPO tutorials)', author: 'Maxime Labonne', source: 'GitHub', url: 'https://github.com/mlabonne/llm-course' },
+    ],
+  },
+];
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
@@ -90,6 +125,48 @@ export default function HomePage() {
     prevModuleTitle.current = activeModuleTitle;
   }, [activeModuleTitle, activeModule]);
 
+  // --- Carousel 3D scroll ---
+  const carouselRefs = useRef([]);
+  const scrollRafRefs = useRef([]);
+
+  const applyCarouselTransforms = useCallback((groupIndex) => {
+    const carousel = carouselRefs.current[groupIndex];
+    if (!carousel) return;
+    const cards = carousel.querySelectorAll('.resource-card');
+    const rect = carousel.getBoundingClientRect();
+    const center = rect.left + rect.width / 2;
+    const isMobile = window.innerWidth <= 600;
+    const maxAngle = isMobile ? 12 : 30;
+
+    cards.forEach((card) => {
+      const cr = card.getBoundingClientRect();
+      const cardCenter = cr.left + cr.width / 2;
+      const offset = Math.max(-1, Math.min(1, (cardCenter - center) / (rect.width / 2)));
+      const rotateY = -offset * maxAngle;
+      const scale = 1 - Math.abs(offset) * (isMobile ? 0.03 : 0.08);
+      const opacity = 1 - Math.abs(offset) * (isMobile ? 0.1 : 0.25);
+      const origin = offset < 0 ? 'right center' : 'left center';
+      card.style.transform = `perspective(1400px) rotateY(${rotateY}deg) scale(${scale})`;
+      card.style.transformOrigin = origin;
+      card.style.opacity = opacity;
+    });
+  }, []);
+
+  const handleCarouselScroll = useCallback((gi) => {
+    if (scrollRafRefs.current[gi]) return;
+    scrollRafRefs.current[gi] = requestAnimationFrame(() => {
+      scrollRafRefs.current[gi] = null;
+      applyCarouselTransforms(gi);
+    });
+  }, [applyCarouselTransforms]);
+
+  useEffect(() => {
+    resources.forEach((_, i) => applyCarouselTransforms(i));
+    const onResize = () => resources.forEach((_, i) => applyCarouselTransforms(i));
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [applyCarouselTransforms]);
+
   const isOverlayOpen = !!activeOverlay;
   const OverlayComponent = activeOverlay ? overlayComponents[activeOverlay] : null;
   const contentRef = useRef(null);
@@ -133,6 +210,57 @@ export default function HomePage() {
               </a>
             ))}
           </div>
+        </section>
+
+        <section className="resources-section">
+          <h2 className="resources-heading">Resources</h2>
+          {resources.map((group, gi) => (
+            <div key={gi} className="resource-category">
+              <h3 className="resource-category-label">{group.category}</h3>
+              <div className="resource-carousel-wrapper">
+                <div
+                  className="resource-carousel"
+                  ref={(el) => { carouselRefs.current[gi] = el; }}
+                  onScroll={() => handleCarouselScroll(gi)}
+                >
+                  {group.items.map((item, ii) => (
+                    <a
+                      key={ii}
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="resource-card"
+                    >
+                      {item.type === 'video' ? (
+                        <div className="resource-card-thumbnail">
+                          <img src={item.thumb} alt={item.title} />
+                          <div className="resource-card-play">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="resource-card-icon">
+                          {item.type === 'paper' ? (
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+                            </svg>
+                          ) : (
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                            </svg>
+                          )}
+                        </div>
+                      )}
+                      <div className="resource-card-info">
+                        <span className="resource-card-title">{item.title}</span>
+                        <span className="resource-card-meta">{item.author}{item.year ? ` · ${item.year}` : ''}</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </section>
       </div>
 

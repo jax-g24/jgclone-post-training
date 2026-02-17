@@ -2235,8 +2235,6 @@ body.course-page {
 .home-page {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
     filter: blur(0);
     transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1),
                 opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
@@ -2288,7 +2286,9 @@ body.course-page {
 /* Modules section */
 .home-modules {
     display: flex;
+    align-items: center;
     justify-content: center;
+    min-height: calc(100vh - 80px);
     padding: 20px 40px 60px;
 }
 
@@ -2400,44 +2400,57 @@ body.course-page {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .bottom-nav-pill {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 6px;
-    background: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
+    gap: 2px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(40px) saturate(1.8);
+    -webkit-backdrop-filter: blur(40px) saturate(1.8);
     border-radius: 100px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     white-space: nowrap;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08),
+                0 0 0 0.5px rgba(0, 0, 0, 0.04);
+    transition: gap 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .bottom-nav-indicator {
     position: absolute;
-    top: 6px;
+    top: 5px;
     left: 0;
-    height: calc(100% - 12px);
-    background: rgba(0, 0, 0, 0.7);
+    height: calc(100% - 10px);
+    background: rgba(0, 0, 0, 0.75);
     border-radius: 100px;
     pointer-events: none;
     z-index: 0;
     will-change: transform, width;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Only use CSS transitions when NOT in RAF-driven animation */
+.bottom-nav-indicator:not(.animating) {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.3s ease;
 }
 
 .bottom-nav-link {
     position: relative;
     z-index: 1;
-    padding: 8px 18px;
+    padding: 9px 18px;
     font-size: 13px;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.45);
     text-decoration: none;
     border-radius: 100px;
     transition: color 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .bottom-nav-link:hover {
@@ -2474,7 +2487,7 @@ body.course-page {
 .bottom-nav-module-label {
     position: relative;
     z-index: 1;
-    padding: 8px 18px;
+    padding: 9px 18px;
     font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
@@ -3203,6 +3216,188 @@ body.course-page {
     font-size: 15px;
 }
 
+/* ==========================================================================
+   25. Resources Section (3D Carousel)
+   ========================================================================== */
+.resources-section {
+    padding: 0 0 100px;
+    overflow: hidden;
+}
+
+.resources-heading {
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(0, 0, 0, 0.25);
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.resource-category {
+    margin-bottom: 48px;
+}
+
+.resource-category:last-child {
+    margin-bottom: 0;
+}
+
+.resource-category-label {
+    font-family: var(--font);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(0, 0, 0, 0.3);
+    padding: 0 60px;
+    margin-bottom: 20px;
+}
+
+.resource-carousel-wrapper {
+    position: relative;
+}
+
+.resource-carousel-wrapper::before,
+.resource-carousel-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.resource-carousel-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, #eeeeee 0%, transparent 100%);
+}
+
+.resource-carousel-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, #eeeeee 0%, transparent 100%);
+}
+
+.resource-carousel {
+    display: flex;
+    gap: 32px;
+    padding: 20px 80px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    transform-style: preserve-3d;
+}
+
+.resource-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.resource-card {
+    flex-shrink: 0;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    scroll-snap-align: center;
+    will-change: transform, opacity;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.resource-card-thumbnail {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #1a1a1a;
+    isolation: isolate;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
+}
+
+.resource-card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s;
+}
+
+.resource-card:hover .resource-card-thumbnail img {
+    opacity: 0.85;
+}
+
+.resource-card-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.resource-card:hover .resource-card-play {
+    opacity: 1;
+}
+
+.resource-card-icon {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.resource-card:hover .resource-card-icon {
+    background: rgba(0, 0, 0, 0.07);
+}
+
+.resource-card-icon svg {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.resource-card-info {
+    padding: 14px 4px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.resource-card-title {
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.resource-card-meta {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.35);
+}
+
 /* BottomNav button reset (links are now <button>) */
 button.bottom-nav-link {
     background: none;
@@ -3269,11 +3464,33 @@ button.bottom-nav-link {
     .page-overlay-content {
         padding: 32px 32px 100px;
     }
+
+    .resource-category-label {
+        padding: 0 40px;
+    }
+
+    .resource-carousel {
+        gap: 24px;
+        padding: 16px 48px;
+    }
+
+    .resource-card {
+        width: 260px;
+    }
+
+    .resource-carousel-wrapper::before,
+    .resource-carousel-wrapper::after {
+        width: 48px;
+    }
 }
 
 @media (max-width: 600px) {
     .home-header {
         padding: 24px 20px 16px;
+    }
+
+    .home-modules {
+        min-height: calc(100vh - 60px);
     }
 
     .home-modules {
@@ -3372,21 +3589,29 @@ button.bottom-nav-link {
     }
 
     .bottom-nav {
-        bottom: 16px;
+        bottom: 12px;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     .bottom-nav-pill {
-        padding: 5px;
+        padding: 4px;
+        gap: 2px;
+    }
+
+    .bottom-nav-indicator {
+        top: 4px;
+        height: calc(100% - 8px);
     }
 
     .bottom-nav-link {
-        padding: 8px 14px;
-        font-size: 13px;
+        padding: 10px 18px;
+        font-size: 14px;
+        font-weight: 500;
     }
 
     .bottom-nav-module-label {
-        padding: 8px 14px;
-        font-size: 13px;
+        padding: 10px 18px;
+        font-size: 14px;
     }
 
     /* Collapse course sub-items on mobile by default */
@@ -3396,9 +3621,24 @@ button.bottom-nav-link {
         padding-right: 0;
         overflow: hidden;
         opacity: 0;
+        font-size: 13px;
         transition: max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
                     padding 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-                    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+                    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Separator dot before first sub-item when expanded */
+    .bottom-nav-pill.expanded .bottom-nav-link.course-sub-first::before {
+        content: '';
+        position: absolute;
+        left: -1px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.15);
+        transition: opacity 0.3s ease;
     }
 
     /* Expand course sub-items when an overlay is active */
@@ -3407,6 +3647,10 @@ button.bottom-nav-link {
         padding-left: 14px;
         padding-right: 14px;
         opacity: 1;
+    }
+
+    .bottom-nav-pill.expanded {
+        gap: 1px;
     }
 
     /* Hide overlay sidebar on mobile for non-syllabus overlays */
@@ -3422,6 +3666,47 @@ button.bottom-nav-link {
     .detail-title {
         font-size: 16px;
     }
+
+    .resources-section {
+        padding: 0 0 80px;
+    }
+
+    .resources-heading {
+        font-size: 11px;
+        margin-bottom: 32px;
+    }
+
+    .resource-category {
+        margin-bottom: 36px;
+    }
+
+    .resource-category-label {
+        padding: 0 20px;
+        font-size: 11px;
+        margin-bottom: 14px;
+    }
+
+    .resource-carousel {
+        gap: 16px;
+        padding: 12px 24px;
+    }
+
+    .resource-card {
+        width: 240px;
+    }
+
+    .resource-carousel-wrapper::before,
+    .resource-carousel-wrapper::after {
+        width: 24px;
+    }
+
+    .resource-card-thumbnail {
+        border-radius: 12px;
+    }
+
+    .resource-card-icon {
+        border-radius: 12px;
+    }
 }
 
 @media (max-width: 380px) {
@@ -3430,19 +3715,20 @@ button.bottom-nav-link {
     }
 
     .bottom-nav-link {
-        padding: 7px 11px;
-        font-size: 12px;
+        padding: 9px 14px;
+        font-size: 13px;
     }
 
     .bottom-nav-module-label {
-        padding: 7px 11px;
-        font-size: 12px;
+        padding: 9px 14px;
+        font-size: 13px;
     }
 
     .bottom-nav-pill.expanded .bottom-nav-link.course-sub {
         max-width: 100px;
-        padding-left: 11px;
-        padding-right: 11px;
+        padding-left: 12px;
+        padding-right: 12px;
+        font-size: 12px;
     }
 
     .home-header {
@@ -3451,6 +3737,20 @@ button.bottom-nav-link {
 
     .home-logo-text {
         font-size: 20px;
+    }
+
+    .resource-card {
+        width: 200px;
+    }
+
+    .resource-carousel {
+        gap: 12px;
+        padding: 10px 16px;
+    }
+
+    .resource-carousel-wrapper::before,
+    .resource-carousel-wrapper::after {
+        width: 16px;
     }
 }
 
