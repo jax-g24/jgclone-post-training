@@ -2285,11 +2285,30 @@ body.course-page {
 
 /* Modules section */
 .home-modules {
+    position: relative;
+}
+
+.home-modules-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 80px);
-    padding: 20px 40px 60px;
+    overflow: hidden;
+}
+
+.home-modules-sticky .home-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.pages-viewport {
+    display: grid;
+    justify-content: center;
 }
 
 /* Tile grid */
@@ -2298,7 +2317,8 @@ body.course-page {
     grid-template-columns: repeat(3, auto);
     gap: 36px 44px;
     z-index: 10;
-    perspective: 1400px;
+    grid-area: 1 / 1;
+    will-change: transform, opacity;
 }
 
 .tile {
@@ -2314,13 +2334,13 @@ body.course-page {
 /* Left column — angled inward from right edge */
 .tile:nth-child(3n+1) {
     transform-origin: right center;
-    transform: rotateY(30deg);
+    transform: perspective(1400px) rotateY(30deg);
 }
 
 /* Right column — angled inward from left edge */
 .tile:nth-child(3n+3) {
     transform-origin: left center;
-    transform: rotateY(-30deg);
+    transform: perspective(1400px) rotateY(-30deg);
 }
 
 .tile-image {
@@ -3219,97 +3239,37 @@ body.course-page {
 /* ==========================================================================
    25. Resources Section (3D Carousel)
    ========================================================================== */
-.resources-section {
-    padding: 0 0 100px;
-    overflow: hidden;
-}
-
-.resources-heading {
-    font-family: var(--font);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(0, 0, 0, 0.25);
-    text-align: center;
-    margin-bottom: 48px;
-}
-
-.resource-category {
-    margin-bottom: 48px;
-}
-
-.resource-category:last-child {
-    margin-bottom: 0;
-}
-
-.resource-category-label {
-    font-family: var(--font);
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: rgba(0, 0, 0, 0.3);
-    padding: 0 60px;
-    margin-bottom: 20px;
-}
-
-.resource-carousel-wrapper {
-    position: relative;
-}
-
-.resource-carousel-wrapper::before,
-.resource-carousel-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 80px;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.resource-carousel-wrapper::before {
-    left: 0;
-    background: linear-gradient(to right, #eeeeee 0%, transparent 100%);
-}
-
-.resource-carousel-wrapper::after {
-    right: 0;
-    background: linear-gradient(to left, #eeeeee 0%, transparent 100%);
-}
-
-.resource-carousel {
-    display: flex;
-    gap: 32px;
-    padding: 20px 80px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    transform-style: preserve-3d;
-}
-
-.resource-carousel::-webkit-scrollbar {
-    display: none;
+.resource-page {
+    grid-area: 1 / 1;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 36px 44px;
+    justify-content: center;
+    will-change: transform, opacity;
 }
 
 .resource-card {
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 14px;
     text-decoration: none;
-    scroll-snap-align: center;
-    will-change: transform, opacity;
+    transform-style: preserve-3d;
     -webkit-tap-highlight-color: transparent;
 }
 
+.resource-card:nth-child(3n+1) {
+    transform-origin: right center;
+    transform: perspective(1400px) rotateY(30deg);
+}
+
+.resource-card:nth-child(3n+3) {
+    transform-origin: left center;
+    transform: perspective(1400px) rotateY(-30deg);
+}
+
 .resource-card .tile-image {
-    width: 300px;
+    width: 360px;
 }
 
 .resource-card .tile-label {
@@ -3318,7 +3278,7 @@ body.course-page {
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-align: center;
-    max-width: 300px;
+    max-width: 360px;
 }
 
 .resource-card:hover .tile-image {
@@ -3329,6 +3289,25 @@ body.course-page {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.02) 100%);
+}
+
+.scroll-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.scroll-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.15);
+    transition: background 0.3s, transform 0.3s;
+}
+
+.scroll-dot.active {
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.3);
 }
 
 /* BottomNav button reset (links are now <button>) */
@@ -3398,38 +3377,22 @@ button.bottom-nav-link {
         padding: 32px 32px 100px;
     }
 
-    .resource-category-label {
-        padding: 0 40px;
+    .resource-page {
+        gap: 24px 28px;
     }
 
-    .resource-carousel {
-        gap: 24px;
-        padding: 16px 48px;
+    .resource-card .tile-image {
+        width: 240px;
     }
 
-    .resource-card .tile-image,
     .resource-card .tile-label {
-        width: 220px;
-        max-width: 220px;
-    }
-
-    .resource-carousel-wrapper::before,
-    .resource-carousel-wrapper::after {
-        width: 48px;
+        max-width: 240px;
     }
 }
 
 @media (max-width: 600px) {
     .home-header {
         padding: 24px 20px 16px;
-    }
-
-    .home-modules {
-        min-height: calc(100vh - 60px);
-    }
-
-    .home-modules {
-        padding: 40px 16px 100px;
     }
 
     .tile-grid {
@@ -3602,39 +3565,23 @@ button.bottom-nav-link {
         font-size: 16px;
     }
 
-    .resources-section {
-        padding: 0 0 80px;
-    }
-
-    .resources-heading {
-        font-size: 11px;
-        margin-bottom: 32px;
-    }
-
-    .resource-category {
-        margin-bottom: 36px;
-    }
-
-    .resource-category-label {
-        padding: 0 20px;
-        font-size: 11px;
-        margin-bottom: 14px;
-    }
-
-    .resource-carousel {
+    .resource-page {
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
-        padding: 12px 24px;
+        padding: 0 16px;
     }
 
-    .resource-card .tile-image,
+    .resource-card .tile-image {
+        width: 100%;
+    }
+
     .resource-card .tile-label {
-        width: 200px;
-        max-width: 200px;
+        max-width: 100%;
     }
 
-    .resource-carousel-wrapper::before,
-    .resource-carousel-wrapper::after {
-        width: 24px;
+    .resource-card:nth-child(3n+1),
+    .resource-card:nth-child(3n+3) {
+        transform: none;
     }
 }
 
@@ -3668,20 +3615,8 @@ button.bottom-nav-link {
         font-size: 20px;
     }
 
-    .resource-card .tile-image,
-    .resource-card .tile-label {
-        width: 170px;
-        max-width: 170px;
-    }
-
-    .resource-carousel {
+    .resource-page {
         gap: 12px;
-        padding: 10px 16px;
-    }
-
-    .resource-carousel-wrapper::before,
-    .resource-carousel-wrapper::after {
-        width: 16px;
     }
 }
 

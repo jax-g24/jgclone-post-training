@@ -24,16 +24,6 @@ const overlayComponents = {
 
 const resources = [
   {
-    category: 'Videos',
-    items: [
-      { type: 'video', title: 'Deep Dive into LLMs like ChatGPT', author: 'Andrej Karpathy', year: '2025', url: 'https://www.youtube.com/watch?v=7xTGNNLPyMI', thumb: 'https://img.youtube.com/vi/7xTGNNLPyMI/maxresdefault.jpg' },
-      { type: 'video', title: 'How I Use LLMs', author: 'Andrej Karpathy', year: '2025', url: 'https://www.youtube.com/watch?v=EWvNQjAaOHw', thumb: 'https://img.youtube.com/vi/EWvNQjAaOHw/maxresdefault.jpg' },
-      { type: 'video', title: 'Intro to Large Language Models', author: 'Andrej Karpathy', year: '2023', url: 'https://www.youtube.com/watch?v=zjkBMFhNj_g', thumb: 'https://img.youtube.com/vi/zjkBMFhNj_g/maxresdefault.jpg' },
-      { type: 'video', title: 'Let\'s reproduce GPT-2 (124M)', author: 'Andrej Karpathy', year: '2024', url: 'https://www.youtube.com/watch?v=l8pRSuU81PU', thumb: 'https://img.youtube.com/vi/l8pRSuU81PU/maxresdefault.jpg' },
-      { type: 'video', title: 'Let\'s build GPT: from scratch, in code', author: 'Andrej Karpathy', year: '2023', url: 'https://www.youtube.com/watch?v=kCc8FmEb1nY', thumb: 'https://img.youtube.com/vi/kCc8FmEb1nY/maxresdefault.jpg' },
-    ],
-  },
-  {
     category: 'Papers',
     items: [
       { type: 'paper', title: 'InstructGPT', author: 'Ouyang et al.', year: '2022', url: 'https://arxiv.org/abs/2203.02155' },
@@ -56,6 +46,14 @@ const resources = [
     ],
   },
 ];
+
+const allResources = resources.flatMap(g => g.items);
+const CARDS_PER_PAGE = 6;
+const resourcePages = [];
+for (let i = 0; i < allResources.length; i += CARDS_PER_PAGE) {
+  resourcePages.push(allResources.slice(i, i + CARDS_PER_PAGE));
+}
+const totalPages = 1 + resourcePages.length;
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
@@ -125,47 +123,73 @@ export default function HomePage() {
     prevModuleTitle.current = activeModuleTitle;
   }, [activeModuleTitle, activeModule]);
 
-  // --- Carousel 3D scroll ---
-  const carouselRefs = useRef([]);
-  const scrollRafRefs = useRef([]);
+  // --- Scroll-jacked pages (tiles + resources) ---
+  const scrollContainerRef = useRef(null);
+  const pagesRef = useRef([]);
+  const dotRefs = useRef([]);
+  const scrollRaf = useRef(null);
 
-  const applyCarouselTransforms = useCallback((groupIndex) => {
-    const carousel = carouselRefs.current[groupIndex];
-    if (!carousel) return;
-    const cards = carousel.querySelectorAll('.resource-card');
-    const rect = carousel.getBoundingClientRect();
-    const center = rect.left + rect.width / 2;
-    const isMobile = window.innerWidth <= 600;
-    const maxAngle = isMobile ? 12 : 30;
+  const updatePages = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const scrollTop = -rect.top;
+    const maxScroll = container.offsetHeight - vh;
 
-    cards.forEach((card) => {
-      const cr = card.getBoundingClientRect();
-      const cardCenter = cr.left + cr.width / 2;
-      const offset = Math.max(-1, Math.min(1, (cardCenter - center) / (rect.width / 2)));
-      const rotateY = -offset * maxAngle;
-      const scale = 1 - Math.abs(offset) * (isMobile ? 0.03 : 0.08);
-      const opacity = 1 - Math.abs(offset) * (isMobile ? 0.1 : 0.25);
-      const origin = offset < 0 ? 'right center' : 'left center';
-      card.style.transform = `perspective(1400px) rotateY(${rotateY}deg) scale(${scale})`;
-      card.style.transformOrigin = origin;
-      card.style.opacity = opacity;
+    let pageFloat;
+    if (scrollTop <= 0) pageFloat = 0;
+    else if (maxScroll <= 0) pageFloat = 0;
+    else if (scrollTop >= maxScroll) pageFloat = totalPages - 1;
+    else pageFloat = scrollTop / vh;
+
+    const currentPage = Math.min(Math.floor(pageFloat), totalPages - 1);
+    const t = pageFloat - currentPage;
+
+    const activeDot = Math.round(pageFloat);
+    dotRefs.current.forEach((dot, i) => {
+      if (dot) dot.classList.toggle('active', i === activeDot);
+    });
+
+    pagesRef.current.forEach((pageEl, pi) => {
+      if (!pageEl) return;
+      let pageTX = 0;
+      let opacity = 0;
+      let pointer = 'none';
+
+      if (pi === currentPage) {
+        opacity = 1;
+        pointer = t < 0.5 ? 'auto' : 'none';
+        pageTX = -t * 100;
+      } else if (pi === currentPage + 1 && t > 0) {
+        opacity = 1;
+        pointer = t >= 0.5 ? 'auto' : 'none';
+        pageTX = (1 - t) * 100;
+      }
+
+      pageEl.style.transform = `translateX(${pageTX}%)`;
+      pageEl.style.opacity = String(opacity);
+      pageEl.style.pointerEvents = pointer;
     });
   }, []);
 
-  const handleCarouselScroll = useCallback((gi) => {
-    if (scrollRafRefs.current[gi]) return;
-    scrollRafRefs.current[gi] = requestAnimationFrame(() => {
-      scrollRafRefs.current[gi] = null;
-      applyCarouselTransforms(gi);
-    });
-  }, [applyCarouselTransforms]);
-
   useEffect(() => {
-    resources.forEach((_, i) => applyCarouselTransforms(i));
-    const onResize = () => resources.forEach((_, i) => applyCarouselTransforms(i));
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [applyCarouselTransforms]);
+    const onScroll = () => {
+      if (scrollRaf.current) return;
+      scrollRaf.current = requestAnimationFrame(() => {
+        scrollRaf.current = null;
+        updatePages();
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updatePages);
+    updatePages();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updatePages);
+      if (scrollRaf.current) cancelAnimationFrame(scrollRaf.current);
+    };
+  }, [updatePages]);
 
   const isOverlayOpen = !!activeOverlay;
   const OverlayComponent = activeOverlay ? overlayComponents[activeOverlay] : null;
@@ -190,40 +214,38 @@ export default function HomePage() {
     <div className="home-canvas">
       {/* Scrollable home content */}
       <div className={`home-page ${activeModule !== null ? 'out' : ''} ${isOverlayOpen ? 'dimmed' : ''}`}>
-        <header className="home-header">
-          <span className="home-logo-text">Post Training</span>
-        </header>
-
-<section className="home-modules">
-          <div className="tile-grid">
-            {tiles.map((tile, i) => (
-              <a
-                key={i}
-                href="#"
-                className="tile"
-                onClick={(e) => handleTileClick(e, tile, i)}
-              >
-                <div className="tile-image">
-                  <img src={tile.image} alt={tile.title} />
-                </div>
-                <span className="tile-label">{tile.title}</span>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="resources-section">
-          <h2 className="resources-heading">Resources</h2>
-          {resources.map((group, gi) => (
-            <div key={gi} className="resource-category">
-              <h3 className="resource-category-label">{group.category}</h3>
-              <div className="resource-carousel-wrapper">
+        <section
+          className="home-modules"
+          ref={scrollContainerRef}
+          style={{ height: `${totalPages * 100}vh` }}
+        >
+          <div className="home-modules-sticky">
+            <header className="home-header">
+              <span className="home-logo-text">Post Training</span>
+            </header>
+            <div className="pages-viewport">
+              <div className="tile-grid" ref={(el) => { pagesRef.current[0] = el; }}>
+                {tiles.map((tile, i) => (
+                  <a
+                    key={i}
+                    href="#"
+                    className="tile"
+                    onClick={(e) => handleTileClick(e, tile, i)}
+                  >
+                    <div className="tile-image">
+                      <img src={tile.image} alt={tile.title} />
+                    </div>
+                    <span className="tile-label">{tile.title}</span>
+                  </a>
+                ))}
+              </div>
+              {resourcePages.map((page, pi) => (
                 <div
-                  className="resource-carousel"
-                  ref={(el) => { carouselRefs.current[gi] = el; }}
-                  onScroll={() => handleCarouselScroll(gi)}
+                  key={pi}
+                  className="resource-page"
+                  ref={(el) => { pagesRef.current[pi + 1] = el; }}
                 >
-                  {group.items.map((item, ii) => (
+                  {page.map((item, ii) => (
                     <a
                       key={ii}
                       href={item.url}
@@ -242,9 +264,18 @@ export default function HomePage() {
                     </a>
                   ))}
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+            <div className="scroll-dots">
+              {Array.from({ length: totalPages }, (_, i) => (
+                <span
+                  key={i}
+                  className={`scroll-dot${i === 0 ? ' active' : ''}`}
+                  ref={(el) => { dotRefs.current[i] = el; }}
+                />
+              ))}
+            </div>
+          </div>
         </section>
       </div>
 
