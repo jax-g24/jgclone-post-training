@@ -224,45 +224,49 @@ export default function HomePage() {
               <span className="home-logo-text">Post Training</span>
             </header>
             <div className="pages-viewport">
-              <div className="tile-grid" ref={(el) => { pagesRef.current[0] = el; }}>
-                {tiles.map((tile, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="tile"
-                    onClick={(e) => handleTileClick(e, tile, i)}
-                  >
-                    <div className="tile-image">
-                      <img src={tile.image} alt={tile.title} />
-                    </div>
-                    <span className="tile-label">{tile.title}</span>
-                  </a>
-                ))}
+              <div className="scroll-page" ref={(el) => { pagesRef.current[0] = el; }}>
+                <div className="tile-grid">
+                  {tiles.map((tile, i) => (
+                    <a
+                      key={i}
+                      href="#"
+                      className="tile"
+                      onClick={(e) => handleTileClick(e, tile, i)}
+                    >
+                      <div className="tile-image">
+                        <img src={tile.image} alt={tile.title} />
+                      </div>
+                      <span className="tile-label">{tile.title}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
               {resourcePages.map((page, pi) => (
                 <div
                   key={pi}
-                  className="resource-page"
+                  className="scroll-page"
                   ref={(el) => { pagesRef.current[pi + 1] = el; }}
                 >
-                  {page.map((item, ii) => (
-                    <a
-                      key={ii}
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="resource-card"
-                    >
-                      <div className="tile-image">
-                        {item.thumb ? (
-                          <img src={item.thumb} alt={item.title} />
-                        ) : (
-                          <div className="resource-card-placeholder" />
-                        )}
-                      </div>
-                      <span className="tile-label">{item.title}</span>
-                    </a>
-                  ))}
+                  <div className="resource-page">
+                    {page.map((item, ii) => (
+                      <a
+                        key={ii}
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="resource-card"
+                      >
+                        <div className="tile-image">
+                          {item.thumb ? (
+                            <img src={item.thumb} alt={item.title} />
+                          ) : (
+                            <div className="resource-card-placeholder" />
+                          )}
+                        </div>
+                        <span className="tile-label">{item.title}</span>
+                      </a>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>

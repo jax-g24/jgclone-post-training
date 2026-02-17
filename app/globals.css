@@ -2317,8 +2317,7 @@ body.course-page {
     grid-template-columns: repeat(3, auto);
     gap: 36px 44px;
     z-index: 10;
-    grid-area: 1 / 1;
-    will-change: transform, opacity;
+    perspective: 1400px;
 }
 
 .tile {
@@ -2334,13 +2333,13 @@ body.course-page {
 /* Left column — angled inward from right edge */
 .tile:nth-child(3n+1) {
     transform-origin: right center;
-    transform: perspective(1400px) rotateY(30deg);
+    transform: rotateY(30deg);
 }
 
 /* Right column — angled inward from left edge */
 .tile:nth-child(3n+3) {
     transform-origin: left center;
-    transform: perspective(1400px) rotateY(-30deg);
+    transform: rotateY(-30deg);
 }
 
 .tile-image {
@@ -3239,13 +3238,17 @@ body.course-page {
 /* ==========================================================================
    25. Resources Section (3D Carousel)
    ========================================================================== */
-.resource-page {
+.scroll-page {
     grid-area: 1 / 1;
+    will-change: transform, opacity;
+}
+
+.resource-page {
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 36px 44px;
     justify-content: center;
-    will-change: transform, opacity;
+    perspective: 1400px;
 }
 
 .resource-card {
@@ -3260,12 +3263,12 @@ body.course-page {
 
 .resource-card:nth-child(3n+1) {
     transform-origin: right center;
-    transform: perspective(1400px) rotateY(30deg);
+    transform: rotateY(30deg);
 }
 
 .resource-card:nth-child(3n+3) {
     transform-origin: left center;
-    transform: perspective(1400px) rotateY(-30deg);
+    transform: rotateY(-30deg);
 }
 
 .resource-card .tile-image {
