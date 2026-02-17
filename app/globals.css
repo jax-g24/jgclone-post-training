@@ -2233,6 +2233,10 @@ body.course-page {
 
 /* Home page slide container */
 .home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
     filter: blur(0);
     transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1),
                 opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
@@ -2270,7 +2274,7 @@ body.course-page {
 }
 
 .home-header {
-    padding: 40px 60px 32px;
+    padding: 24px 60px 20px;
     text-align: center;
 }
 
@@ -2285,7 +2289,7 @@ body.course-page {
 .home-modules {
     display: flex;
     justify-content: center;
-    padding: 80px 40px 140px;
+    padding: 20px 40px 60px;
 }
 
 /* Tile grid */
