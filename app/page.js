@@ -20,7 +20,7 @@ const overlayComponents = {
   calendar: CalendarContent,
   projects: ProjectsContent,
   about: AboutContent,
-;
+};
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
