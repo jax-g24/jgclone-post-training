@@ -153,22 +153,26 @@ export default function HomePage() {
 
     pagesRef.current.forEach((pageEl, pi) => {
       if (!pageEl) return;
-      let pageTX = 0;
       let opacity = 0;
       let pointer = 'none';
+      let scale = 1;
+      let blur = 0;
 
       if (pi === currentPage) {
-        opacity = 1;
+        opacity = 1 - t;
         pointer = t < 0.5 ? 'auto' : 'none';
-        pageTX = -t * 100;
+        scale = 1 - t * 0.08;
+        blur = t * 6;
       } else if (pi === currentPage + 1 && t > 0) {
-        opacity = 1;
+        opacity = t;
         pointer = t >= 0.5 ? 'auto' : 'none';
-        pageTX = (1 - t) * 100;
+        scale = 1.08 - t * 0.08;
+        blur = (1 - t) * 6;
       }
 
-      pageEl.style.transform = `translateX(${pageTX}%)`;
+      pageEl.style.transform = `scale(${scale})`;
       pageEl.style.opacity = String(opacity);
+      pageEl.style.filter = blur > 0.1 ? `blur(${blur}px)` : 'none';
       pageEl.style.pointerEvents = pointer;
     });
   }, []);

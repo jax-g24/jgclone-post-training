@@ -3253,9 +3253,8 @@ body.course-page {
 .resource-page {
     display: grid;
     grid-template-columns: repeat(3, auto);
-    gap: 36px 44px;
+    gap: 44px 56px;
     justify-content: center;
-    perspective: 1400px;
 }
 
 .resource-card {
@@ -3264,18 +3263,7 @@ body.course-page {
     align-items: center;
     gap: 14px;
     text-decoration: none;
-    transform-style: preserve-3d;
     -webkit-tap-highlight-color: transparent;
-}
-
-.resource-card:nth-child(3n+1) {
-    transform-origin: right center;
-    transform: rotateY(30deg);
-}
-
-.resource-card:nth-child(3n+3) {
-    transform-origin: left center;
-    transform: rotateY(-30deg);
 }
 
 .resource-card .tile-image {
@@ -3587,11 +3575,6 @@ button.bottom-nav-link {
 
     .resource-card .tile-label {
         max-width: 100%;
-    }
-
-    .resource-card:nth-child(3n+1),
-    .resource-card:nth-child(3n+3) {
-        transform: none;
     }
 }
 
