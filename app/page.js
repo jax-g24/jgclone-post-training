@@ -20,22 +20,7 @@ const overlayComponents = {
   calendar: CalendarContent,
   projects: ProjectsContent,
   about: AboutContent,
-};
-
-const resources = [
-  { type: 'paper', title: 'InstructGPT', author: 'Ouyang et al.', year: '2022', url: 'https://arxiv.org/abs/2203.02155' },
-  { type: 'paper', title: 'Direct Preference Optimization (DPO)', author: 'Rafailov et al.', year: '2023', url: 'https://arxiv.org/abs/2305.18290' },
-  { type: 'paper', title: 'DeepSeek R1', author: 'DeepSeek-AI', year: '2025', url: 'https://arxiv.org/abs/2501.12948' },
-  { type: 'paper', title: 'Reinforcement Learning from Human Feedback', author: 'Nathan Lambert', year: '2025', url: 'https://rlhfbook.com/book.pdf' },
-  { type: 'paper', title: 'Open Problems and Fundamental Limitations of RLHF', author: 'Casper et al.', year: '2023', url: 'https://arxiv.org/abs/2307.15217' },
-  { type: 'article', title: 'RLHF Learning Resources', author: 'Nathan Lambert', url: 'https://www.interconnects.ai/p/rlhf-resources' },
-  { type: 'article', title: '2025 Open Models Year in Review', author: 'Nathan Lambert', url: 'https://www.interconnects.ai/p/2025-open-models-year-in-review' },
-  { type: 'article', title: 'The State of LLMs 2025', author: 'Sebastian Raschka', url: 'https://magazine.sebastianraschka.com/p/state-of-llms-2025' },
-  { type: 'article', title: '2025 LLM Year in Review', author: 'Andrej Karpathy', url: 'https://karpathy.bearblog.dev/year-in-review-2025/' },
-  { type: 'article', title: 'Illustrating RLHF', author: 'Hugging Face', url: 'https://huggingface.co/blog/rlhf' },
-  { type: 'article', title: 'RLHF 101: A Technical Tutorial', author: 'CMU ML Blog', url: 'https://blog.ml.cmu.edu/2025/06/01/rlhf-101-a-technical-tutorial-on-reinforcement-learning-from-human-feedback/' },
-  { type: 'article', title: 'LLM Course (DPO/GRPO tutorials)', author: 'Maxime Labonne', url: 'https://github.com/mlabonne/llm-course' },
-];
+;
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
@@ -76,9 +61,22 @@ export default function HomePage() {
       image: '/assets/images/RLHF and Reward Learning.jpg',
       overlay: 'about',
     },
+    { title: 'InstructGPT', url: 'https://arxiv.org/abs/2203.02155' },
+    { title: 'Direct Preference Optimization (DPO)', url: 'https://arxiv.org/abs/2305.18290' },
+    { title: 'DeepSeek R1', url: 'https://arxiv.org/abs/2501.12948' },
+    { title: 'RLHF (Lambert)', url: 'https://rlhfbook.com/book.pdf' },
+    { title: 'Open Problems in RLHF', url: 'https://arxiv.org/abs/2307.15217' },
+    { title: 'RLHF Learning Resources', url: 'https://www.interconnects.ai/p/rlhf-resources' },
+    { title: '2025 Open Models Review', url: 'https://www.interconnects.ai/p/2025-open-models-year-in-review' },
+    { title: 'State of LLMs 2025', url: 'https://magazine.sebastianraschka.com/p/state-of-llms-2025' },
+    { title: '2025 LLM Year in Review', url: 'https://karpathy.bearblog.dev/year-in-review-2025/' },
+    { title: 'Illustrating RLHF', url: 'https://huggingface.co/blog/rlhf' },
+    { title: 'RLHF 101: A Technical Tutorial', url: 'https://blog.ml.cmu.edu/2025/06/01/rlhf-101-a-technical-tutorial-on-reinforcement-learning-from-human-feedback/' },
+    { title: 'LLM Course (DPO/GRPO)', url: 'https://github.com/mlabonne/llm-course' },
   ];
 
   const handleTileClick = (e, tile, index) => {
+    if (tile.url) return; // let the native link handle it
     e.preventDefault();
     if (tile.overlay) {
       setActiveOverlay(tile.overlay);
@@ -134,12 +132,15 @@ export default function HomePage() {
             {tiles.map((tile, i) => (
               <a
                 key={i}
-                href="#"
+                href={tile.url || '#'}
                 className="tile"
                 onClick={(e) => handleTileClick(e, tile, i)}
+                {...(tile.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
                 <div className="tile-image">
-                  <img src={tile.image} alt={tile.title} />
+                  {tile.image
+                    ? <img src={tile.image} alt={tile.title} />
+                    : <div className="tile-placeholder" />}
                 </div>
                 <span className="tile-label">{tile.title}</span>
               </a>
@@ -147,26 +148,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="resources-section">
-          <h2 className="resources-heading">Resources</h2>
-          <div className="resources-grid">
-            {resources.map((item, i) => (
-              <a
-                key={i}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="resource-card"
-              >
-                <div className="resource-card-inner">
-                  <span className="resource-card-type">{item.type}</span>
-                  <span className="resource-card-title">{item.title}</span>
-                  <span className="resource-card-author">{item.author}</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
       </div>
 
       {/* Module detail card */}
