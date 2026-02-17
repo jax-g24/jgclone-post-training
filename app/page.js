@@ -231,30 +231,14 @@ export default function HomePage() {
                       rel="noopener noreferrer"
                       className="resource-card"
                     >
-                      {item.type === 'video' ? (
-                        <div className="resource-card-thumbnail">
+                      <div className="tile-image">
+                        {item.thumb ? (
                           <img src={item.thumb} alt={item.title} />
-                          <div className="resource-card-play">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="resource-card-icon">
-                          {item.type === 'paper' ? (
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-                            </svg>
-                          ) : (
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                            </svg>
-                          )}
-                        </div>
-                      )}
-                      <div className="resource-card-info">
-                        <span className="resource-card-title">{item.title}</span>
-                        <span className="resource-card-meta">{item.author}{item.year ? ` · ${item.year}` : ''}</span>
+                        ) : (
+                          <div className="resource-card-placeholder" />
+                        )}
                       </div>
+                      <span className="tile-label">{item.title}</span>
                     </a>
                   ))}
                 </div>
