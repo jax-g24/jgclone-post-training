@@ -36,20 +36,14 @@ export default function HomePage() {
     {
       title: 'Post-Training',
       image: '/assets/images/posttraining-foundations.jpg',
-      slides: null,
-      recording: null,
     },
     {
       title: 'Reasoning & Agents',
       image: '/assets/images/Alignment Methods & Model Behavior.jpg',
-      slides: null,
-      recording: null,
     },
     {
       title: 'Product & Research',
       image: '/assets/images/Evals as Research.jpg',
-      slides: null,
-      recording: null,
     },
     {
       title: 'Calendar',
@@ -61,22 +55,9 @@ export default function HomePage() {
       image: '/assets/images/RLHF and Reward Learning.jpg',
       overlay: 'about',
     },
-    { title: 'InstructGPT', url: 'https://arxiv.org/abs/2203.02155' },
-    { title: 'Direct Preference Optimization (DPO)', url: 'https://arxiv.org/abs/2305.18290' },
-    { title: 'DeepSeek R1', url: 'https://arxiv.org/abs/2501.12948' },
-    { title: 'RLHF (Lambert)', url: 'https://rlhfbook.com/book.pdf' },
-    { title: 'Open Problems in RLHF', url: 'https://arxiv.org/abs/2307.15217' },
-    { title: 'RLHF Learning Resources', url: 'https://www.interconnects.ai/p/rlhf-resources' },
-    { title: '2025 Open Models Review', url: 'https://www.interconnects.ai/p/2025-open-models-year-in-review' },
-    { title: 'State of LLMs 2025', url: 'https://magazine.sebastianraschka.com/p/state-of-llms-2025' },
-    { title: '2025 LLM Year in Review', url: 'https://karpathy.bearblog.dev/year-in-review-2025/' },
-    { title: 'Illustrating RLHF', url: 'https://huggingface.co/blog/rlhf' },
-    { title: 'RLHF 101: A Technical Tutorial', url: 'https://blog.ml.cmu.edu/2025/06/01/rlhf-101-a-technical-tutorial-on-reinforcement-learning-from-human-feedback/' },
-    { title: 'LLM Course (DPO/GRPO)', url: 'https://github.com/mlabonne/llm-course' },
   ];
 
   const handleTileClick = (e, tile, index) => {
-    if (tile.url) return; // let the native link handle it
     e.preventDefault();
     if (tile.overlay) {
       setActiveOverlay(tile.overlay);
@@ -132,15 +113,12 @@ export default function HomePage() {
             {tiles.map((tile, i) => (
               <a
                 key={i}
-                href={tile.url || '#'}
+                href="#"
                 className="tile"
                 onClick={(e) => handleTileClick(e, tile, i)}
-                {...(tile.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
                 <div className="tile-image">
-                  {tile.image
-                    ? <img src={tile.image} alt={tile.title} />
-                    : <div className="tile-placeholder" />}
+                  <img src={tile.image} alt={tile.title} />
                 </div>
                 <span className="tile-label">{tile.title}</span>
               </a>

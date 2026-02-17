@@ -2285,10 +2285,6 @@ body.course-page {
 
 /* Modules section */
 .home-modules {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 80px);
     padding: 20px 40px 60px;
 }
 
@@ -2297,6 +2293,7 @@ body.course-page {
     display: grid;
     grid-template-columns: repeat(3, auto);
     gap: 36px 44px;
+    justify-content: center;
     z-index: 10;
     perspective: 1400px;
 }
