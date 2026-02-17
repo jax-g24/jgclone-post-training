@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PdfSlides from './components/PdfSlides';
 import { useModule } from './components/ModuleContext';
 import SyllabusContent from './components/SyllabusContent';
@@ -23,37 +23,19 @@ const overlayComponents = {
 };
 
 const resources = [
-  {
-    category: 'Papers',
-    items: [
-      { type: 'paper', title: 'InstructGPT', author: 'Ouyang et al.', year: '2022', url: 'https://arxiv.org/abs/2203.02155' },
-      { type: 'paper', title: 'Direct Preference Optimization (DPO)', author: 'Rafailov et al.', year: '2023', url: 'https://arxiv.org/abs/2305.18290' },
-      { type: 'paper', title: 'DeepSeek R1', author: 'DeepSeek-AI', year: '2025', url: 'https://arxiv.org/abs/2501.12948' },
-      { type: 'paper', title: 'Reinforcement Learning from Human Feedback', author: 'Nathan Lambert', year: '2025', url: 'https://rlhfbook.com/book.pdf' },
-      { type: 'paper', title: 'Open Problems and Fundamental Limitations of RLHF', author: 'Casper et al.', year: '2023', url: 'https://arxiv.org/abs/2307.15217' },
-    ],
-  },
-  {
-    category: 'Articles',
-    items: [
-      { type: 'article', title: 'RLHF Learning Resources', author: 'Nathan Lambert', source: 'Interconnects', url: 'https://www.interconnects.ai/p/rlhf-resources' },
-      { type: 'article', title: '2025 Open Models Year in Review', author: 'Nathan Lambert', source: 'Interconnects', url: 'https://www.interconnects.ai/p/2025-open-models-year-in-review' },
-      { type: 'article', title: 'The State of LLMs 2025', author: 'Sebastian Raschka', source: 'Magazine', url: 'https://magazine.sebastianraschka.com/p/state-of-llms-2025' },
-      { type: 'article', title: '2025 LLM Year in Review', author: 'Andrej Karpathy', source: 'Blog', url: 'https://karpathy.bearblog.dev/year-in-review-2025/' },
-      { type: 'article', title: 'Illustrating RLHF', author: 'Hugging Face', source: 'Blog', url: 'https://huggingface.co/blog/rlhf' },
-      { type: 'article', title: 'RLHF 101: A Technical Tutorial', author: 'CMU ML Blog', source: 'Blog', url: 'https://blog.ml.cmu.edu/2025/06/01/rlhf-101-a-technical-tutorial-on-reinforcement-learning-from-human-feedback/' },
-      { type: 'article', title: 'LLM Course (DPO/GRPO tutorials)', author: 'Maxime Labonne', source: 'GitHub', url: 'https://github.com/mlabonne/llm-course' },
-    ],
-  },
+  { type: 'paper', title: 'InstructGPT', author: 'Ouyang et al.', year: '2022', url: 'https://arxiv.org/abs/2203.02155' },
+  { type: 'paper', title: 'Direct Preference Optimization (DPO)', author: 'Rafailov et al.', year: '2023', url: 'https://arxiv.org/abs/2305.18290' },
+  { type: 'paper', title: 'DeepSeek R1', author: 'DeepSeek-AI', year: '2025', url: 'https://arxiv.org/abs/2501.12948' },
+  { type: 'paper', title: 'Reinforcement Learning from Human Feedback', author: 'Nathan Lambert', year: '2025', url: 'https://rlhfbook.com/book.pdf' },
+  { type: 'paper', title: 'Open Problems and Fundamental Limitations of RLHF', author: 'Casper et al.', year: '2023', url: 'https://arxiv.org/abs/2307.15217' },
+  { type: 'article', title: 'RLHF Learning Resources', author: 'Nathan Lambert', url: 'https://www.interconnects.ai/p/rlhf-resources' },
+  { type: 'article', title: '2025 Open Models Year in Review', author: 'Nathan Lambert', url: 'https://www.interconnects.ai/p/2025-open-models-year-in-review' },
+  { type: 'article', title: 'The State of LLMs 2025', author: 'Sebastian Raschka', url: 'https://magazine.sebastianraschka.com/p/state-of-llms-2025' },
+  { type: 'article', title: '2025 LLM Year in Review', author: 'Andrej Karpathy', url: 'https://karpathy.bearblog.dev/year-in-review-2025/' },
+  { type: 'article', title: 'Illustrating RLHF', author: 'Hugging Face', url: 'https://huggingface.co/blog/rlhf' },
+  { type: 'article', title: 'RLHF 101: A Technical Tutorial', author: 'CMU ML Blog', url: 'https://blog.ml.cmu.edu/2025/06/01/rlhf-101-a-technical-tutorial-on-reinforcement-learning-from-human-feedback/' },
+  { type: 'article', title: 'LLM Course (DPO/GRPO tutorials)', author: 'Maxime Labonne', url: 'https://github.com/mlabonne/llm-course' },
 ];
-
-const allResources = resources.flatMap(g => g.items);
-const CARDS_PER_PAGE = 6;
-const resourcePages = [];
-for (let i = 0; i < allResources.length; i += CARDS_PER_PAGE) {
-  resourcePages.push(allResources.slice(i, i + CARDS_PER_PAGE));
-}
-const totalPages = 1 + resourcePages.length;
 
 export default function HomePage() {
   const [activeModule, setActiveModule] = useState(null);
@@ -116,90 +98,16 @@ export default function HomePage() {
   // Close module panel when nav clears the module title externally
   const prevModuleTitle = useRef(activeModuleTitle);
   useEffect(() => {
-    // Only close if title went from something to null (external clear)
     if (prevModuleTitle.current && !activeModuleTitle && activeModule !== null) {
       setActiveModule(null);
     }
     prevModuleTitle.current = activeModuleTitle;
   }, [activeModuleTitle, activeModule]);
 
-  // --- Scroll-jacked pages (tiles + resources) ---
-  const scrollContainerRef = useRef(null);
-  const pagesRef = useRef([]);
-  const dotRefs = useRef([]);
-  const scrollRaf = useRef(null);
-
-  const updatePages = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    const rect = container.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const scrollTop = -rect.top;
-    const maxScroll = container.offsetHeight - vh;
-
-    let pageFloat;
-    if (scrollTop <= 0) pageFloat = 0;
-    else if (maxScroll <= 0) pageFloat = 0;
-    else if (scrollTop >= maxScroll) pageFloat = totalPages - 1;
-    else pageFloat = scrollTop / vh;
-
-    const currentPage = Math.min(Math.floor(pageFloat), totalPages - 1);
-    const t = pageFloat - currentPage;
-
-    const activeDot = Math.round(pageFloat);
-    dotRefs.current.forEach((dot, i) => {
-      if (dot) dot.classList.toggle('active', i === activeDot);
-    });
-
-    pagesRef.current.forEach((pageEl, pi) => {
-      if (!pageEl) return;
-      let opacity = 0;
-      let pointer = 'none';
-      let scale = 1;
-      let blur = 0;
-
-      if (pi === currentPage) {
-        opacity = 1 - t;
-        pointer = t < 0.5 ? 'auto' : 'none';
-        scale = 1 - t * 0.08;
-        blur = t * 6;
-      } else if (pi === currentPage + 1 && t > 0) {
-        opacity = t;
-        pointer = t >= 0.5 ? 'auto' : 'none';
-        scale = 1.08 - t * 0.08;
-        blur = (1 - t) * 6;
-      }
-
-      pageEl.style.transform = `scale(${scale})`;
-      pageEl.style.opacity = String(opacity);
-      pageEl.style.filter = blur > 0.1 ? `blur(${blur}px)` : 'none';
-      pageEl.style.pointerEvents = pointer;
-    });
-  }, []);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (scrollRaf.current) return;
-      scrollRaf.current = requestAnimationFrame(() => {
-        scrollRaf.current = null;
-        updatePages();
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updatePages);
-    updatePages();
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', updatePages);
-      if (scrollRaf.current) cancelAnimationFrame(scrollRaf.current);
-    };
-  }, [updatePages]);
-
   const isOverlayOpen = !!activeOverlay;
   const OverlayComponent = activeOverlay ? overlayComponents[activeOverlay] : null;
   const contentRef = useRef(null);
 
-  // Forward wheel events from anywhere on the overlay to the content column
   useEffect(() => {
     if (!isOverlayOpen) return;
     const handleWheel = (e) => {
@@ -216,73 +124,47 @@ export default function HomePage() {
 
   return (
     <div className="home-canvas">
-      {/* Scrollable home content */}
       <div className={`home-page ${activeModule !== null ? 'out' : ''} ${isOverlayOpen ? 'dimmed' : ''}`}>
-        <section
-          className="home-modules"
-          ref={scrollContainerRef}
-          style={{ height: `${totalPages * 100}vh` }}
-        >
-          <div className="home-modules-sticky">
-            <header className="home-header">
-              <span className="home-logo-text">Post Training</span>
-            </header>
-            <div className="pages-viewport">
-              <div className="scroll-page" ref={(el) => { pagesRef.current[0] = el; }}>
-                <div className="tile-grid">
-                  {tiles.map((tile, i) => (
-                    <a
-                      key={i}
-                      href="#"
-                      className="tile"
-                      onClick={(e) => handleTileClick(e, tile, i)}
-                    >
-                      <div className="tile-image">
-                        <img src={tile.image} alt={tile.title} />
-                      </div>
-                      <span className="tile-label">{tile.title}</span>
-                    </a>
-                  ))}
+        <header className="home-header">
+          <span className="home-logo-text">Post Training</span>
+        </header>
+
+        <section className="home-modules">
+          <div className="tile-grid">
+            {tiles.map((tile, i) => (
+              <a
+                key={i}
+                href="#"
+                className="tile"
+                onClick={(e) => handleTileClick(e, tile, i)}
+              >
+                <div className="tile-image">
+                  <img src={tile.image} alt={tile.title} />
                 </div>
-              </div>
-              {resourcePages.map((page, pi) => (
-                <div
-                  key={pi}
-                  className="scroll-page"
-                  ref={(el) => { pagesRef.current[pi + 1] = el; }}
-                >
-                  <div className="resource-page">
-                    {page.map((item, ii) => (
-                      <a
-                        key={ii}
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="resource-card"
-                      >
-                        <div className="tile-image">
-                          {item.thumb ? (
-                            <img src={item.thumb} alt={item.title} />
-                          ) : (
-                            <div className="resource-card-placeholder" />
-                          )}
-                        </div>
-                        <span className="tile-label">{item.title}</span>
-                      </a>
-                    ))}
-                  </div>
+                <span className="tile-label">{tile.title}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="resources-section">
+          <h2 className="resources-heading">Resources</h2>
+          <div className="resources-grid">
+            {resources.map((item, i) => (
+              <a
+                key={i}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="resource-card"
+              >
+                <div className="resource-card-inner">
+                  <span className="resource-card-type">{item.type}</span>
+                  <span className="resource-card-title">{item.title}</span>
+                  <span className="resource-card-author">{item.author}</span>
                 </div>
-              ))}
-            </div>
-            <div className="scroll-dots">
-              {Array.from({ length: totalPages }, (_, i) => (
-                <span
-                  key={i}
-                  className={`scroll-dot${i === 0 ? ' active' : ''}`}
-                  ref={(el) => { dotRefs.current[i] = el; }}
-                />
-              ))}
-            </div>
+              </a>
+            ))}
           </div>
         </section>
       </div>
